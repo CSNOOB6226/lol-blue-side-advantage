@@ -1,0 +1,32 @@
+# Raw Oracle's Elixir CSVs are large and redistributed under their own terms:
+# download them yourself into data/raw/ (see data/raw/README.md).
+data/raw/*.csv
+
+# The derived table (data/derived/*.csv) IS committed so figures/tables reproduce
+# without the raw files.
+
+__pycache__/
+*.pyc
+.mplconfig/
+.DS_Store
+.Rhistory
+.ipynb_checkpoints/
+.worktrees/
+
+# Local environments, credentials, and temporary outputs
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+*.log
+*.tmp
+*.swp
+~$*
+node_modules/
+.pytest_cache/
+.ruff_cache/
+**/数据/原始数据/*.csv
+**/api/cache/
+.riotkey
+*.key

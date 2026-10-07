@@ -1,0 +1,9 @@
+# Direct dependency versions used for the validated Python 3.13 release run.
+# This is a tested environment snapshot, not a complete transitive lockfile.
+pandas==3.0.1
+numpy==2.4.2
+statsmodels==0.14.6
+scipy==1.17.0
+matplotlib==3.10.8
+scikit-learn==1.8.0
+xgboost==3.2.0
