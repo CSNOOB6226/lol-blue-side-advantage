@@ -1,0 +1,19 @@
+A. INTERNAL MATCH-UP-QUALITY CONTROL (cross-fitted from OE, no external data)
+   match-up quality = leakage-free champ-vs-champ expected 15-min lane gold.
+
+--- TOP (headline)  n=28250 ---
+  (1) matchup quality -> win : OR/SD = 1.044 [1.012,1.078] p=0.0078  (matchup MATTERS)
+  (2) reveal timing   -> win : OR/SD = 1.020 (alone) -> 1.023 (ctrl matchup) p=0.18  (timing ~0)
+      matchup stays strong controlling timing: OR/SD = 1.046 p=0.006
+  (3) does counter-pick buy a better matchup? z_mq ~ zgap: beta=-0.061 SD/SD p=1.4e-14
+
+   all five lanes (OR/SD): matchup->win vs timing->win(ctrl matchup)
+   top : matchup OR=1.044 (p=0.0078)   timing OR=1.023 (p=0.18)   counter->matchup beta=-0.061 (p=1.4e-14)
+   jng : matchup OR=1.004 (p=0.79)   timing OR=0.989 (p=0.53)   counter->matchup beta=+0.105 (p=4.5e-39)
+   mid : matchup OR=0.985 (p=0.35)   timing OR=0.981 (p=0.25)   counter->matchup beta=-0.006 (p=0.45)
+   bot : matchup OR=1.100 (p=7.8e-09)   timing OR=1.002 (p=0.91)   counter->matchup beta=-0.048 (p=4e-09)
+   sup : matchup OR=1.041 (p=0.013)   timing OR=1.019 (p=0.26)   counter->matchup beta=-0.029 (p=0.00091)
+
+   READ: the drafted MATCH-UP predicts winning; the ACT of revealing later does not,
+   and barely moves once match-up is controlled. What little counter-picking buys is a
+   marginal match-up edge, not a timing bonus -> clean separation from iTero's counter effect.

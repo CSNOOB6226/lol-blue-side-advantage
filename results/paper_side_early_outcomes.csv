@@ -1,0 +1,10 @@
+outcome,unit,n,blue_effect,ci_lo,ci_hi,p_value,std_effect
+First herald,pp,86072,19.33,18.4,20.25,0.0,0.387
+First dragon,pp,86072,-19.48,-20.41,-18.56,0.0,-0.39
+First tower,pp,86072,8.7,7.75,9.64,2.845428867720309e-73,0.174
+First blood,pp,86072,2.82,1.88,3.77,4.738250663364086e-09,0.056
+"Void grubs (count, 2024+)",count,46138,0.98,0.94,1.02,0.0,0.52
+Gold difference at 10 min,gold,86072,248.2,220.14,276.27,2.6580510302784848e-67,0.167
+Gold difference at 15 min,gold,86070,549.22,492.53,605.9,2.074797642802617e-80,0.182
+XP difference at 15 min,xp,86070,103.89,64.38,143.41,2.5650223400402034e-07,0.05
+Team vision score,points,86074,2.82,2.42,3.23,9.297475583704295e-42,0.038

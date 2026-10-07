@@ -1,0 +1,22 @@
+B. EQUIVALENCE (TOST) — is each draft lever statistically equivalent to null?
+   bounds: primary OR∈[0.909,1.100], strict OR∈[0.95,1.05]
+
+ DRAFT LEVERS (expected: equivalent to null):
+  First pick (2026)      OR=0.939  90%CI[0.843,1.047]  TOST p(±10%)=0.311  p(±5%)=0.569  -> not shown equivalent
+  Counterpick top 2025   OR=1.010  90%CI[0.975,1.046]  TOST p(±10%)=0.000  p(±5%)=0.033  -> EQUIVALENT to null
+  Counterpick jng 2025   OR=0.996  90%CI[0.963,1.031]  TOST p(±10%)=0.000  p(±5%)=0.011  -> EQUIVALENT to null
+  Counterpick mid 2025   OR=0.960  90%CI[0.927,0.994]  TOST p(±10%)=0.005  p(±5%)=0.314  -> EQUIVALENT to null
+  Counterpick bot 2025   OR=1.010  90%CI[0.976,1.046]  TOST p(±10%)=0.000  p(±5%)=0.033  -> EQUIVALENT to null
+  Counterpick sup 2025   OR=1.033  90%CI[0.998,1.069]  TOST p(±10%)=0.001  p(±5%)=0.215  -> EQUIVALENT to null
+  Counterpick top 2026   OR=1.042  90%CI[0.993,1.092]  TOST p(±10%)=0.030  p(±5%)=0.391  -> EQUIVALENT to null
+  Counterpick jng 2026   OR=0.980  90%CI[0.935,1.027]  TOST p(±10%)=0.004  p(±5%)=0.137  -> EQUIVALENT to null
+  Counterpick mid 2026   OR=1.023  90%CI[0.976,1.072]  TOST p(±10%)=0.005  p(±5%)=0.180  -> EQUIVALENT to null
+  Counterpick bot 2026   OR=0.972  90%CI[0.927,1.018]  TOST p(±10%)=0.010  p(±5%)=0.215  -> EQUIVALENT to null
+  Counterpick sup 2026   OR=0.995  90%CI[0.949,1.042]  TOST p(±10%)=0.001  p(±5%)=0.053  -> EQUIVALENT to null
+
+ CONTRAST — blue side (expected: NOT equivalent, it is a real effect):
+  Blue side (2026)       OR=1.233  90%CI[1.124,1.354]  TOST p(±10%)=0.978  p(±5%)=0.998  -> not shown equivalent
+
+  SUMMARY: 10/11 draft levers are statistically EQUIVALENT to null at the ±10%-odds bound;
+           blue side is NOT equivalent (as it should be — a genuine effect).
+  => The draft nulls are not 'absence of evidence': we can rule out any non-negligible effect.

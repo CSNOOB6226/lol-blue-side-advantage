@@ -1,0 +1,30 @@
+A. FLEX-PICK ROBUSTNESS  (counter-pick OR per SD later reveal; want ~1 throughout)
+   flex-capable champions detected: 60 (e.g. Akali, Akshan, Amumu, Anivia, Annie, Ashe, Aurora, Corki ...)
+   2025 top : full OR=1.010  clean OR=1.010  non-flexTop OR=0.994
+   2025 jng : full OR=0.996  clean OR=0.996
+   2025 mid : full OR=0.960  clean OR=0.960
+   2025 bot : full OR=1.010  clean OR=1.010
+   2025 sup : full OR=1.033  clean OR=1.033
+   2026 top : full OR=1.042  clean OR=1.042  non-flexTop OR=1.022
+   2026 jng : full OR=0.980  clean OR=0.980
+   2026 mid : full OR=1.023  clean OR=1.023
+   2026 bot : full OR=0.972  clean OR=0.972
+   2026 sup : full OR=0.995  clean OR=0.995
+   -> counter-pick stays ~1 on clean-reconstruction and non-flex subsets.
+
+B. CHAMPION-CLASS HETEROGENEITY  (does TOP counter-picking help some classes?)
+   2025:  per-class TOP counter-pick OR (result ~ zgap + blue within class)
+      carry   : OR=1.020 95%CI[0.957,1.086] p=0.541  n=5083
+      bruiser : OR=1.008 95%CI[0.954,1.065] p=0.77  n=6809
+      tank    : OR=1.014 95%CI[0.959,1.073] p=0.616  n=6438
+      interaction LR chi2(2)=0.19 p=0.908 -> no class heterogeneity in top counter-pick value
+   2026:  per-class TOP counter-pick OR (result ~ zgap + blue within class)
+      carry   : OR=1.072 95%CI[0.986,1.166] p=0.104  n=2578
+      bruiser : OR=1.028 95%CI[0.947,1.117] p=0.506  n=3052
+      tank    : OR=1.077 95%CI[1.005,1.154] p=0.0348  n=4194
+      interaction LR chi2(2)=1.62 p=0.446 -> no class heterogeneity in top counter-pick value
+
+C. FIXED-EFFECTS ROBUSTNESS  (top counter-pick, 2026)
+   no FE : OR=1.042 p=0.158
+   +league+patch FE : OR=1.042 p=0.159  -> null robust to FE
+

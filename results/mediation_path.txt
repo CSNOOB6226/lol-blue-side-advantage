@@ -1,0 +1,50 @@
+PATH-ANALYSIS MEDIATION of the blue-side win advantage (LPM, pp of win prob)
+indirect_j = a_j(blue->M_j) * b_j(M_j->win); total = direct + sum indirect_j
+
+=== 2022  (n=21282 team-games) ===
+  TOTAL blue->win   :  +4.6 pp
+    via first herald (+, top-side)  :  -0.6 pp
+    via first dragon (-, suppressor):  -1.8 pp
+    via gold@15 (SD)                :  +3.9 pp
+    via first tower                 :  +0.6 pp
+    direct / unexplained residual :  +2.6 pp
+    (residual = 56% of total -> map root cause OE cannot measure)
+
+=== 2023  (n=18742 team-games) ===
+  TOTAL blue->win   :  +6.7 pp
+    via first herald (+, top-side)  :  -0.6 pp
+    via first dragon (-, suppressor):  -1.9 pp
+    via gold@15 (SD)                :  +4.6 pp
+    via first tower                 :  +0.8 pp
+    direct / unexplained residual :  +3.7 pp
+    (residual = 56% of total -> map root cause OE cannot measure)
+
+=== 2024  (n=17604 team-games) ===
+  TOTAL blue->win   :  +5.7 pp
+    via first herald (+, top-side)  :  +1.5 pp
+    via first dragon (-, suppressor):  -2.2 pp
+    via gold@15 (SD)                :  +5.0 pp
+    via first tower                 :  +0.8 pp
+    direct / unexplained residual :  +0.6 pp
+    (residual = 11% of total -> map root cause OE cannot measure)
+
+=== 2025  (n=18442 team-games) ===
+  TOTAL blue->win   :  +6.6 pp  [95% CI +4.6,+8.5]
+    via first herald (+, top-side)  :  +2.5 pp  [CI +2.0,+2.9]
+    via first dragon (-, suppressor):  -2.8 pp  [CI -3.3,-2.4]
+    via gold@15 (SD)                :  +3.6 pp  [CI +2.8,+4.4]
+    via first tower                 :  +1.4 pp  [CI +1.0,+1.8]
+    direct / unexplained residual :  +2.0 pp  [CI +0.3,+3.6]
+    (residual = 30% of total -> map root cause OE cannot measure)
+
+=== 2026  (n=10000 team-games) ===
+  TOTAL blue->win   :  +5.2 pp  [95% CI +2.4,+8.0]
+    via first herald (+, top-side)  :  +2.0 pp  [CI +1.3,+2.8]
+    via first dragon (-, suppressor):  -1.9 pp  [CI -2.4,-1.4]
+    via gold@15 (SD)                :  +2.6 pp  [CI +1.5,+3.7]
+    via first tower                 :  +1.3 pp  [CI +0.7,+1.8]
+    direct / unexplained residual :  +1.3 pp  [CI -1.1,+3.5]
+    (residual = 24% of total -> map root cause OE cannot measure)
+
+ROBUST 5-YEAR PATTERN: first herald is the ENGINE (positive, growing);
+first dragon is a SUPPRESSOR (blue wins DESPITE conceding it); large residual.

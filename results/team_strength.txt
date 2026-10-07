@@ -1,0 +1,21 @@
+PRE-GAME ELO sanity: result ~ z(rating_diff)
+  OR per SD = 2.152  McFadden R^2=0.0802  (rating_diff SD = 90 Elo)
+
+BLUE-SIDE OR: raw vs strength-controlled (result ~ blue [+ z_rd])
+  (coupled regime 2022-25: side assigned -> strength ~orthogonal, OR stable/up;
+   decoupled 2026: teams CHOOSE side -> some raw edge is strong-teams-pick-blue.)
+  2022: blue OR 1.202 (raw) -> 1.205 [CI 1.112,1.306 p=5.1e-06] (map effect not a strength artifact)
+  2023: blue OR 1.307 (raw) -> 1.331 [CI 1.222,1.449 p=4.4e-11] (map effect not a strength artifact)
+  2024: blue OR 1.259 (raw) -> 1.338 [CI 1.224,1.462 p=1.6e-10] (map effect not a strength artifact)
+  2025: blue OR 1.302 (raw) -> 1.416 [CI 1.299,1.544 p=2.9e-15] (map effect not a strength artifact)
+  2026: blue OR 1.233 (raw) -> 1.114 [CI 0.990,1.254 p=0.072] (selection: raw edge partly strong-teams-on-blue)
+
+2026 FIRST-PICK OR: raw vs strength-controlled
+  firstPick OR 0.939 (p=0.34)  ->  0.926 (p=0.27) with strength
+
+HOW MUCH DOES DRAFT MATTER?  McFadden pseudo-R^2, nested (2026, n=9860)
+  team strength (Elo) only          : 0.0914
+  + blue side (map)                 : 0.0919   (+0.0005)
+  + first-pick + 5-lane counterpick : 0.0926   (+0.0007 from ALL draft timing)
+  -> crude team strength explains far more than map side, which in turn
+     dwarfs every draft-timing lever combined (~0 incremental R^2).

@@ -1,0 +1,15 @@
+C. FULL EARLY-STATE MEDIATION — residual of the blue edge (LPM, pp of win prob)
+   parsimonious (4 channels) vs full <=15-min state (9 channels).
+
+  2022 (n=21282): total +4.6pp | residual parsimonious +2.6pp (56%) -> FULL +3.1pp (67%)  (no grubs pre-2024)
+  2023 (n=18742): total +6.7pp | residual parsimonious +3.7pp (56%) -> FULL +4.2pp (63%)  (no grubs pre-2024)
+  2024 (n=17604): total +5.7pp | residual parsimonious +0.6pp (11%) -> FULL +1.2pp (21%)
+  2025 (n=18442): total +6.6pp | residual parsimonious +2.0pp (30%) -> FULL +2.4pp (37%)  [95% CI +0.7,+4.1]
+  2026 (n=10000): total +5.2pp | residual parsimonious +1.3pp (24%) -> FULL +1.2pp (24%)  [95% CI -0.9,+3.8]
+
+  Even with the FULL observable <=15-min state, 21-37% of
+  the blue-side edge (2024-26) stays as an unexplained DIRECT residual. Crucially the full
+  vector does NOT shrink the residual vs the 4-channel model (it is flat / slightly larger):
+  first blood, grubs and t=10 economy are simply NOT where blue's advantage lives (it is
+  concentrated in top-side herald tempo). This robustly points to a MAP-GEOMETRY root cause
+  Oracle's Elixir does not record — the ceiling that needs Riot timeline/coordinate data.

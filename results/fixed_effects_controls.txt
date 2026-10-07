@@ -1,0 +1,12 @@
+BLUE-SIDE EFFECT WITH COMPLEMENTARY FIXED-EFFECTS CONTROLS
+  outcome: result (linear probability model, percentage-point scale)
+  inference: SE clustered by gameid
+  Pooled LPM: 5.79 pp [4.84, 6.73], p=2.55e-33 (n=86,074, clusters=43,037)
+  Own team-season FE: 5.49 pp [4.61, 6.38], p=3.27e-34 (n=86,074, clusters=43,037)
+  Own team-season FE + opponent-team FE: 4.57 pp [3.71, 5.42], p=1.05e-25 (n=86,074, clusters=43,037)
+
+Interpretation:
+  The pooled blue-side association is +5.79 pp.
+  Absorbing own team-season effects barely changes it (+5.49 pp).
+  Adding opponent-team fixed effects attenuates it further, but a sizeable
+  blue-side association remains (+4.57 pp).

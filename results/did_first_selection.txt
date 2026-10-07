@@ -1,0 +1,27 @@
+DiD panel: 24 leagues x years, 109 league-years
+  treatment intensity D (2026 decoupling) across kept leagues: min=0.00 median=0.01 max=0.71
+  most-decoupled leagues (D): LCK=0.71, LCS=0.67, CBLOL=0.62, CD=0.57, LCKC=0.54, LCP=0.52
+
+MAIN DiD  (outcome = blue-side win advantage, pp):
+  b(D x post2026) = +4.04 pp per unit decoupling  95%CI[-4.07,+12.15]  p=0.329
+  -> at LCK-level decoupling (D~0.7): predicted change = +2.83 pp (a full-strength rule would need a large negative here).
+
+EVENT STUDY (D x year, relative to 2025; pre-2026 ~0 => parallel trends):
+   2022: -0.44 pp  95%CI[-7.67,+6.79]  (pre)
+   2023: -1.09 pp  95%CI[-7.84,+5.66]  (pre)
+   2024: +3.71 pp  95%CI[-4.12,+11.55]  (pre)
+   2026: +4.62 pp  95%CI[-3.93,+13.18]  <-- treatment year
+  parallel-trends check: largest pre-period |coef| = 3.71 pp (2026 = +4.62 pp).
+  CAUTION: pre-period coefficients are NOT flat (2024 already elevated) and
+  the panel is small -> read the DiD as SUGGESTIVE, not clean identification.
+
+PLACEBO (outcome = blue-side FIRST-HERALD rate; map geometry is fixed):
+  b(D x post2026) = +2.55 pp  95%CI[-4.29,+9.39]  p=0.465
+  (near 0 as expected: decoupling does not move the mechanical map advantage.)
+
+READ (honest): the DiD point estimate is POSITIVE and non-significant, so there
+is NO evidence First Selection reduced the blue-side edge (if anything decoupled
+leagues drift slightly higher, consistent with strong teams self-selecting blue).
+The placebo (herald) is null as it should be. BUT pre-trends are imperfect and the
+panel is small, so the DiD is SUPPORTING evidence, not proof; the robust evidence
+is the descriptive 5-year stability of blue OR (1.21-1.31, incl. 2026), see figures.

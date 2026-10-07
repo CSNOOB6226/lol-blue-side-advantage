@@ -1,0 +1,28 @@
+
+(1) FIRST-PICK vs MAP SIDE  (2026, decoupled regime)
+    firstPick==1 is Blue 74.9% of the time (natural variation)
+    firstPick  OR=0.939  95%CI[0.825,1.068]  p=0.34
+    blue side  OR=1.269  95%CI[1.115,1.443]  p=0.000298
+    McFadden pseudo-R^2=0.0021  LR chi2=28.2 (df=2) p=7.66e-07
+
+(2) BLUE-SIDE ADVANTAGE by year  (result ~ blue, cluster SE)
+    2022: blue OR=1.202  95%CI[1.114,1.297]  p=2.2e-06   (raw blue WR=0.523, n=10641 games)
+    2023: blue OR=1.307  95%CI[1.205,1.417]  p=1e-10   (raw blue WR=0.533, n=9372 games)
+    2024: blue OR=1.259  95%CI[1.158,1.369]  p=6.7e-08   (raw blue WR=0.529, n=8803 games)
+    2025: blue OR=1.302  95%CI[1.199,1.413]  p=2.7e-10   (raw blue WR=0.533, n=9221 games)
+    2026: blue OR=1.233  95%CI[1.104,1.378]  p=0.00021   (raw blue WR=0.526, n=5000 games)
+
+(3) COUNTER-PICK by lane x year  (result ~ z(reveal_gap) + blue, cluster SE)
+    reveal_gap>0 = my lane revealed later than opponent's (more information).
+    2025 top  OR=1.010 95%CI[0.968,1.053] p=0.65 p_FDR=0.813  laneGold cp/bp=-7/+7
+    2025 jng  OR=0.996 95%CI[0.956,1.038] p=0.855 p_FDR=0.855  laneGold cp/bp=+43/-43
+    2025 mid  OR=0.960 95%CI[0.921,1.000] p=0.0512 p_FDR=0.512  laneGold cp/bp=-10/+10
+    2025 bot  OR=1.010 95%CI[0.970,1.053] p=0.621 p_FDR=0.813  laneGold cp/bp=-17/+17
+    2025 sup  OR=1.033 95%CI[0.991,1.076] p=0.123 p_FDR=0.526  laneGold cp/bp=+10/-10
+    2026 top  OR=1.042 95%CI[0.984,1.102] p=0.158 p_FDR=0.526  laneGold cp/bp=-32/+32
+    2026 jng  OR=0.980 95%CI[0.927,1.036] p=0.48 p_FDR=0.8  laneGold cp/bp=+33/-33
+    2026 mid  OR=1.023 95%CI[0.967,1.082] p=0.425 p_FDR=0.8  laneGold cp/bp=+27/-27
+    2026 bot  OR=0.972 95%CI[0.919,1.028] p=0.314 p_FDR=0.785  laneGold cp/bp=+9/-9
+    2026 sup  OR=0.995 95%CI[0.941,1.052] p=0.851 p_FDR=0.855  laneGold cp/bp=-11/+11
+    -> 0/10 tests significant at raw p<.05; 0/10 survive FDR.
+    -> all 10 ORs in [0.960, 1.042] (i.e. hugging OR=1).
