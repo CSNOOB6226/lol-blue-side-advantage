@@ -20,7 +20,7 @@ through early objectives, 15-minute gold, and match outcome.
 
 > **Main finding.** The win association follows **map side** more closely than
 > first-pick priority. Blue side is associated with greater top-side objective control,
-> more first towers, and a **549-gold average lead at 15 minutes**. Teams ahead at
+> more first towers, and an **average lead of about 275 gold at 15 minutes**. Teams ahead at
 > 15 minutes win **73.96%** of games. These are observational associations, not a
 > claim that one objective or map position causally determines the result.
 
@@ -33,7 +33,7 @@ through early objectives, 15-minute gold, and match outcome.
 2026 年 First Selection 规则使地图方与一选权不再完全绑定。联合模型中，蓝方仍与
 胜利显著相关，而一选权没有检测到独立关联；但一选权置信区间仍然较宽，因此不能断言
 其价值为零。蓝方更常拿到首只峡谷先锋和一塔、更少拿到首条小龙，并在 15 分钟平均
-领先 549 经济。整套分析强调相关性、稳健性和可复现性，不把路径分解解释为因果中介。
+领先约 275 经济。整套分析强调相关性、稳健性和可复现性，不把路径分解解释为因果中介。
 
 </details>
 
@@ -58,10 +58,10 @@ to reproduce the analysis; [`audit_data.py`](src/audit_data.py) checks the data 
 
 1. Is the blue-side win advantage persistent across seasons?
 2. Does the 2026 association follow map side or first-pick priority?
-3. Does revealing a role later predict winning? (Historical supplementary analysis.)
-4. Where does the side imbalance become visible in the early game?
-5. How strongly does 15-minute gold order final win probability?
-6. Did the 2026 rule change coincide with a structural break in the blue-side gap?
+3. Where does the side imbalance become visible in the early game?
+4. How strongly does 15-minute gold order final win probability?
+5. Did the 2026 rule change coincide with a structural break in the blue-side gap?
+6. Does revealing a role later predict winning? (Historical supplementary analysis.)
 
 Counter-pick timing and equivalence analyses are retained as historical supplements.
 They are outside the current manuscript scope because reveal order does not identify
@@ -75,17 +75,22 @@ actual counter-pick intent; see [PAPER_STATUS.md](docs/PAPER_STATUS.md).
 | Blue-side win odds, 2022–2026 | **OR 1.20–1.31** each season | The association is positive in all five observed seasons. |
 | Blue side in the 2026 joint model | **OR 1.269**, 95% CI [1.115, 1.443] | The side association remains after first-pick status is included. |
 | First pick in the 2026 joint model | **OR 0.939**, 95% CI [0.825, 1.068] | No detectable independent association; the interval is too wide to establish practical equivalence. |
-| Counter-pick timing, 5 roles × 2 seasons | **0/10** FDR-significant | All ten estimates are equivalent within a prespecified ±10% odds region. |
-| First Herald difference | **+19.33 pp** for blue | The largest positive side difference in named objective ownership. |
-| First Dragon difference | **−19.48 pp** for blue | Dragon control suppresses rather than explains the observed blue-side gap. |
-| First Tower difference | **+8.70 pp** for blue | Consistent with stronger early economic conversion. |
-| Gold difference at 15 minutes | **+549 gold** for blue | The side imbalance is clearly visible in the early economy. |
+| First Herald (blue minus red) | **+19.33 pp** | The largest positive side difference in named objective ownership. |
+| First Dragon (blue minus red) | **−19.48 pp** | Dragon control suppresses rather than explains the observed blue-side gap. |
+| First Tower (blue minus red) | **+8.70 pp** | Consistent with stronger early economic conversion. |
+| Mean blue gold lead at 15 minutes | **+275 gold** | The side imbalance is clearly visible in the early economy. |
 | Win rate when GD@15 > 0 | **73.96%** | Fifteen-minute gold strongly orders final match outcome. |
 | Predictive model comparison | **AUC 0.833–0.834** across models | Flexible ML does not materially outperform the interpretable logistic benchmark on the current feature set. |
 
 As a team-strength robustness check, the pooled linear-probability estimate changes
 from **+5.79 percentage points** to **+5.49 points** with own-team-season fixed
 effects and **+4.57 points** after opponent-team effects are added.
+
+Historical draft-timing analyses are retained below the main side results:
+
+| Supplementary result | Estimate | Interpretation |
+|---|---:|---|
+| Counter-pick timing, 5 roles × 2 seasons | **0/10** FDR-significant | All ten tested reveal-gap associations are equivalent within a prespecified ±10% odds region. |
 
 ## Key figures
 
@@ -102,11 +107,12 @@ The predictive-check outputs are [`results/ml_model_comparison.csv`](results/ml_
 [`results/ml_fold_metrics.csv`](results/ml_fold_metrics.csv),
 [`results/ml_feature_importance.csv`](results/ml_feature_importance.csv), and
 [`figures/en/fig_en6_ml_validation.png`](figures/en/fig_en6_ml_validation.png).
+These compare a match-state benchmark (some objective counts are not strictly
+time-stamped before 15:00).
 
 ## Quick start
 
 中文运行与目录说明：[使用说明.md](使用说明.md)。
-网页上传步骤：[上传到GitHub.md](上传到GitHub.md)。
 Supplementary research scripts, report builders, and presentation source modules
 are preserved in [`supplementary.zip`](supplementary.zip); see the
 [extraction instructions](supplementary/README.md).
@@ -188,14 +194,16 @@ any model is estimated.
 | Persistence of the side gap | Season-specific logistic regressions with game-clustered standard errors |
 | Team-strength confounding | Pre-match Elo and pooled fixed-effects linear-probability models |
 | Side versus first pick | 2026 joint logistic model using red-side first-pick variation |
-| Counter-pick timing | Role-season logistic models, Benjamini–Hochberg FDR correction, and TOST equivalence tests |
-| Match-up versus reveal timing | Cross-fitted, shrinkage-adjusted champion match-up score |
 | Early-game pathway | Side-to-state regressions, GD@15 models, and additive path decomposition with game-cluster bootstrap intervals |
 | 2026 reform check | League-season difference-in-differences/event-study diagnostic |
 | Predictive model comparison | Grouped cross-validation and chronological holdouts comparing logistic regression, random forest, and XGBoost |
+| Counter-pick timing (historical supplement) | Role-season logistic models, Benjamini–Hochberg FDR correction, and TOST equivalence tests |
+| Match-up versus reveal timing (historical supplement) | Cross-fitted, shrinkage-adjusted champion match-up score |
 
-See [`docs/METHODS.md`](docs/METHODS.md) for the complete statistical rationale and
-[`docs/report_bilingual.md`](docs/report_bilingual.md) for the longer bilingual report.
+See [`docs/METHODS.md`](docs/METHODS.md) for the statistical rationale and
+[`results/`](results/) for the current generated estimates. The
+[July 2026 bilingual draft](docs/archive/report_bilingual_2026-07.md) is historical
+and predates the LPLOL sample correction.
 The literature-review search, screening, and extraction plan is documented in
 [`docs/LITERATURE_REVIEW.md`](docs/LITERATURE_REVIEW.md), with a machine-readable
 seed set in [`docs/literature_seed.csv`](docs/literature_seed.csv).
@@ -237,7 +245,7 @@ seed set in [`docs/literature_seed.csv`](docs/literature_seed.csv).
     ├── METHODS.md
     ├── LITERATURE_REVIEW.md
     ├── literature_seed.csv
-    └── report_bilingual.md
+    └── archive/report_bilingual_2026-07.md # historical draft
 ```
 
 ## Interpretation boundaries

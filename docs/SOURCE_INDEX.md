@@ -167,7 +167,7 @@ python -m zipfile -e supplementary.zip .
 - `supplementary/红蓝方研究/蓝方优势项目/scripts/08_residual_probe.py`
 - `supplementary/红蓝方研究/蓝方优势项目/scripts/09_apifree_chain.py`
 - `supplementary/红蓝方研究/蓝方优势项目/scripts/10_falsification.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/10_review_round1.py`
+- `supplementary/红蓝方研究/蓝方优势项目/scripts/10_additional_robustness.py`
 
 ## supplementary/红蓝方研究/论文（3）
 

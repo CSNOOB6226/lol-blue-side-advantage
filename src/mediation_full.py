@@ -1,19 +1,18 @@
 """
-C. FULL early-state mediation — how much of the blue-side edge can OE explain?
+Associational match-state benchmark for the blue-side win contrast.
 
-The parsimonious path model (mediation_path.py) leaves a sizeable direct residual that we
-attribute to unmeasured *map geometry* (the ceiling without Riot coordinate/timeline data).
-Here we stress that claim honestly: throw the ENTIRE observable <=15-minute state vector at it
-and see how far the residual falls.
+Compare the residual blue coefficient after adjustment for four path variables
+with a broader match-state benchmark. Some objective counts are not strictly
+time-stamped before 15:00, so this is not a complete pre-15-minute information set.
+Unmeasured factors, including map geometry, may be consistent with a remaining
+association but cannot be identified from these data.
 
-  parsimonious mediators : firstherald, firstdragon, gold@15, firsttower           (4)
-  full early-state vector: + firstblood, void_grubs, gold@10, xp@10, xp@15          (9)
+  parsimonious variables: firstherald, firstdragon, gold@15, firsttower           (4)
+  benchmark variables: + firstblood, void_grubs, gold@10, xp@10, xp@15            (9)
 
-If the residual barely moves, "it's map geometry OE cannot see" is strengthened. If it
-collapses, we honestly revise toward "measured early state explains most of it." Either way
-the number is informative. Residual = direct effect of blue controlling all mediators (LPM);
-CI by cluster bootstrap over games. (Individual channel splits are collinear and not
-interpreted; only the residual — which OLS estimates unbiasedly — is the headline.)
+The residual is the adjusted blue coefficient in a linear probability model.
+Confidence intervals resample whole games. Individual channel splits in the
+broader model are collinear and are not interpreted as causal effects.
 
 Outputs: results/mediation_full.txt, results/mediation_full.csv
 """
@@ -49,7 +48,7 @@ def prep(sub: pd.DataFrame):
 
 
 def direct(y, blue, M):
-    """direct effect of blue on y controlling mediators M (LPM via lstsq)."""
+    """Adjusted blue coefficient controlling variables M (LPM via lstsq)."""
     X = np.column_stack([np.ones(len(y)), blue, M])
     beta, *_ = np.linalg.lstsq(X, y, rcond=None)
     return beta[1]
@@ -76,8 +75,9 @@ def boot_ci(sub, cols, B=500):
 
 def main():
     d = load_teamgames()
-    log("C. FULL EARLY-STATE MEDIATION — residual of the blue edge (LPM, pp of win prob)")
-    log("   parsimonious (4 channels) vs full <=15-min state (9 channels).\n")
+    log("C. MATCH-STATE BENCHMARK — adjusted blue association (LPM, pp of win prob)")
+    log("   parsimonious (4 variables) vs match-state benchmark (up to 9 variables).\n")
+    log("   Some objective counts are not strictly time-stamped before 15:00.\n")
     rows = []
     for y in (2022, 2023, 2024, 2025, 2026):
         sub, full_avail = prep(d[d.year == y])
@@ -95,12 +95,13 @@ def main():
                          resid_full_pp=100*res_f, resid_full_share=res_f/tot,
                          ci_lo=100*ci[0], ci_hi=100*ci[1]))
     recent = [r["resid_full_share"] for r in rows if r["year"] >= 2024]
-    log(f"\n  Even with the FULL observable <=15-min state, {100*min(recent):.0f}-{100*max(recent):.0f}% of")
-    log("  the blue-side edge (2024-26) stays as an unexplained DIRECT residual. Crucially the full")
-    log("  vector does NOT shrink the residual vs the 4-channel model (it is flat / slightly larger):")
-    log("  first blood, grubs and t=10 economy are simply NOT where blue's advantage lives (it is")
-    log("  concentrated in top-side herald tempo). This robustly points to a MAP-GEOMETRY root cause")
-    log("  Oracle's Elixir does not record — the ceiling that needs Riot timeline/coordinate data.")
+    log(f"\n  With the match-state benchmark, {100*min(recent):.0f}-{100*max(recent):.0f}% of")
+    log("  the blue-side contrast (2024-26) remains as an adjusted residual association.")
+    changes = [r["resid_full_pp"] - r["resid_pars_pp"] for r in rows if r["year"] >= 2024]
+    log(f"  Benchmark minus parsimonious residual: {min(changes):+.2f} to {max(changes):+.2f} pp.")
+    log("  This is consistent with factors not recorded in Oracle's Elixir, e.g. map geometry;")
+    log("  their contributions are not identifiable with these data. These are associations,")
+    log("  and the objective counts do not all refer strictly to the state before 15:00.")
 
     pd.DataFrame(rows).to_csv(os.path.join(cfg.RESULTS_DIR, "mediation_full.csv"), index=False)
     with open(os.path.join(cfg.RESULTS_DIR, "mediation_full.txt"), "w") as f:

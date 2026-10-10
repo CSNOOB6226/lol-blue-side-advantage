@@ -14,6 +14,33 @@ def _read_rows(name: str) -> list[dict[str, str]]:
 
 
 class ResultRegressionTests(unittest.TestCase):
+    def test_signed_leads_use_one_blue_row_per_game(self) -> None:
+        rows = _read_rows("paper_side_early_outcomes.csv")
+        expected = {
+            "Gold difference at 10 min (mean blue lead)": (43036, 124.10, 110.07, 138.14),
+            "Gold difference at 15 min (mean blue lead)": (43035, 274.61, 246.26, 302.95),
+            "XP difference at 15 min (mean blue lead)": (43035, 51.95, 32.19, 71.71),
+        }
+        by_outcome = {row["outcome"]: row for row in rows}
+        for outcome, (n, effect, lo, hi) in expected.items():
+            with self.subTest(outcome=outcome):
+                row = by_outcome[outcome]
+                self.assertEqual(int(row["n"]), n)
+                for field, value in [("blue_effect", effect), ("ci_lo", lo), ("ci_hi", hi)]:
+                    self.assertAlmostEqual(float(row[field]), value, delta=0.05)
+
+    def test_grubs_contrast_uses_the_2024_onward_sample(self) -> None:
+        rows = _read_rows("paper_side_early_outcomes.csv")
+        row = next(row for row in rows if row["outcome"].startswith("Void grubs"))
+        self.assertIn("blue minus red", row["outcome"])
+        self.assertEqual(int(row["n"]), 46048)
+        self.assertAlmostEqual(float(row["blue_effect"]), 0.984016678, delta=0.01)
+
+    def test_full_rank_elo_model_preserves_published_fit(self) -> None:
+        rows = _read_rows("team_strength_R2.csv")
+        draft = next(row for row in rows if row["model"] == "strength+side+draft")
+        self.assertAlmostEqual(float(draft["mcfadden_r2"]), 0.0925618476, delta=0.0001)
+
     def test_blue_side_or_stays_in_published_five_year_band(self) -> None:
         rows = _read_rows("blue_or_by_year.csv")
         years = [int(row["year"]) for row in rows]

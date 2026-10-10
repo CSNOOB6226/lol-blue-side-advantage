@@ -7,7 +7,7 @@ The complete supplementary materials are preserved in
 to access the manuscript path below.
 
 The current manuscript is the second revision, mathematical version:
-`supplementary/红蓝方研究/论文/第二版_改写稿/manuscript_en_math_revised.md`. Its folder README explicitly selects version 02. It prioritizes
+`supplementary/红蓝方研究/论文/第二版_改写稿/manuscript_en_math_revised.md`. The folder README inventories the available manuscript sources and figures. This manuscript prioritizes
 map side, early objectives, and 15-minute economy, with predictive triangulation.
 Counter-pick analyses and their TOST/FDR results were removed because reveal order
 cannot establish actual counter-pick intent. Existing repository outputs remain
@@ -19,7 +19,8 @@ headline is checked against all three CSV estimates at the displayed precision;
 non-finite or missing estimates fail. The current manuscript also reports +5.79,
 +5.49, and +4.57 percentage points, consistent with those results at this review.
 
-Before submission, reconcile the current manuscript with regenerated tables, complete
-the search and screening log in `docs/LITERATURE_REVIEW.md`, and choose a public
-code/data availability destination. The first-draft submission-readiness document
-is historical and should not be treated as an audit of the second revision.
+The literature-review search and screening protocol is documented in
+[`LITERATURE_REVIEW.md`](LITERATURE_REVIEW.md). Repository outputs can be regenerated
+with `python run_all.py`; external manuscript claims require a separate audit.
+The first-draft submission-readiness document is historical and should not be
+treated as an audit of the second revision.

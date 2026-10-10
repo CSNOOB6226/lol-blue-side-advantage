@@ -40,7 +40,7 @@ import statsmodels.formula.api as smf
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import config as cfg
-from utils import load_teamgames
+from utils import load_teamgames, logit_cluster, or_ci
 
 MIN_GAMES_YEAR = 40       # a league-year needs enough games to estimate a blue WR
 MIN_FP26 = 30             # need enough 2026 first-pick games to estimate D
@@ -140,7 +140,9 @@ def main():
     log("leagues drift slightly higher, consistent with strong teams self-selecting blue).")
     log("The placebo (herald) is null as it should be. BUT pre-trends are imperfect and the")
     log("panel is small, so the DiD is SUPPORTING evidence, not proof; the robust evidence")
-    log("is the descriptive 5-year stability of blue OR (1.21-1.31, incl. 2026), see figures.")
+    blue_ors = [or_ci(logit_cluster("result ~ blue", d[d.year == y].dropna(subset=["blue", "result"])),
+                      "blue")[0] for y in sorted(d.year.unique())]
+    log(f"is the descriptive 5-year blue OR range ({min(blue_ors):.2f}-{max(blue_ors):.2f}, incl. 2026), see figures.")
 
     panel.to_csv(os.path.join(cfg.RESULTS_DIR, "did_panel.csv"), index=False)
     pd.DataFrame(es_rows).sort_values("year").to_csv(

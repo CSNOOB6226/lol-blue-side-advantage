@@ -5,13 +5,14 @@ existing analysis.
 
 Outputs (results/):
   paper_sample_by_year.csv     sample composition, coverage window, blue win rate
-  paper_side_early_outcomes.csv  blue -> early-state differences (mechanism inputs)
+  paper_side_early_outcomes.csv  mean blue leads and blue-minus-red team contrasts
   paper_firstpick_crosstab.csv   2026 side x first-pick cells with win rates
 """
 from __future__ import annotations
 import os, sys
 import numpy as np
 import pandas as pd
+import statsmodels.formula.api as smf
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import config as cfg
@@ -48,7 +49,7 @@ def sample_by_year(d: pd.DataFrame) -> pd.DataFrame:
 
 
 def side_early_outcomes(d: pd.DataFrame) -> pd.DataFrame:
-    """OLS of each early-state variable on `blue`, cluster SE by game (pooled sample)."""
+    """Mean signed leads on blue rows; clustered side contrasts for team outcomes."""
     specs = [
         ("First herald", "firstherald", "pp"),
         ("First dragon", "firstdragon", "pp"),
@@ -65,16 +66,32 @@ def side_early_outcomes(d: pd.DataFrame) -> pd.DataFrame:
         if col not in d:
             continue
         s = d.dropna(subset=[col, "blue"]).copy()
+        if col == "void_grubs":
+            s = s[s.year >= 2024].copy()
+        signed_lead = col in {"golddiffat10", "golddiffat15", "xpdiffat15"}
+        if signed_lead:
+            # These columns already subtract the opponent: retain one row per game.
+            s = s[s.blue == 1].copy()
+            if s.gameid.duplicated().any():
+                raise ValueError(f"Duplicate blue game rows for {col}")
         if s[col].nunique() < 2:
             continue
-        m = ols_cluster(f"{col} ~ blue", s)
-        b, se, p = m.params["blue"], m.bse["blue"], m.pvalues["blue"]
+        if signed_lead:
+            m = smf.ols(f"{col} ~ 1", s).fit()
+            b, p = m.params["Intercept"], m.pvalues["Intercept"]
+            lo, hi = m.conf_int().loc["Intercept"]
+            label += " (mean blue lead)"
+        else:
+            m = ols_cluster(f"{col} ~ blue", s)
+            b, se, p = m.params["blue"], m.bse["blue"], m.pvalues["blue"]
+            lo, hi = b - 1.96 * se, b + 1.96 * se
+            label += " (blue minus red)"
         scale = 100.0 if unit == "pp" else 1.0
         sd = s[col].std()
         rows.append(dict(outcome=label, unit=unit, n=len(s),
                          blue_effect=round(b * scale, 2),
-                         ci_lo=round((b - 1.96 * se) * scale, 2),
-                         ci_hi=round((b + 1.96 * se) * scale, 2),
+                         ci_lo=round(lo * scale, 2),
+                         ci_hi=round(hi * scale, 2),
                          p_value=p,
                          std_effect=round(b / sd, 3) if sd else np.nan))
     return pd.DataFrame(rows)
@@ -101,7 +118,7 @@ def main():
 
     t2 = side_early_outcomes(d)
     t2.to_csv(os.path.join(cfg.RESULTS_DIR, "paper_side_early_outcomes.csv"), index=False)
-    print("== Blue-side differences in early-state variables (pooled) ==\n",
+    print("== Mean blue leads and blue-minus-red team contrasts ==\n",
           t2.to_string(index=False), "\n")
 
     t3 = firstpick_crosstab(d)

@@ -1,15 +1,8 @@
-> Historical research narrative. For the current analysis scope and interpretation limits, see [README.md](../README.md) and [PAPER_STATUS.md](PAPER_STATUS.md).
+Historical draft (July 2026), superseded;
+sample 84,548 predates the LPLOL fix; numbers may differ from results/.
 
 # 红蓝方与选秀优势的迷思
 ## The Myth of Draft Advantage: Statistically Disentangling Map-Side from Draft in Professional League of Legends
-
-> 📦 **Repo note.** This is the full bilingual narrative. The causal-inference steps it
-> lists as *pending* (mediation with CIs, a First-Selection DiD, a team-strength control,
-> FDR correction) are now **implemented** in this repository — see
-> [`../README.md`](../README.md), [`METHODS.md`](METHODS.md), and `../src/*.py`. Script /
-> data paths in the Appendix below refer to the original monorepo; the equivalents here are
-> `src/model_draft_value.py`, `src/team_strength.py`, `src/mediation_path.py`,
-> `src/did_first_selection.py`, and `src/robustness.py`.
 
 > **数据 / Data**：Oracle's Elixir 职业比赛数据，非中国赛区。主样本《2026年非中国赛区比赛数据.csv》（5,000 局 / 10,000 队伍-局 / 35 赛区 / 补丁 16.01–16.10）；机制复现样本：2022–2025 各年原始数据（手动剔除 LPL/LDL 后，每年约 8,600–10,400 非中国局）。
 > **分析单位 / Unit**：每队每局一行（`result`＝是否获胜）；所有标准误按 `gameid` 聚类（处理同局两行镜像）。
@@ -21,11 +14,11 @@
 
 ## 0. 摘要 · Abstract
 
-职业 League of Legends 的解说、教练与观众普遍相信选秀（BP）阶段的两类"优势"能带来胜利：**首选权**（先选、抢 OP 英雄）与**后手反制选英雄**（counterpick，拿到信息后针对性选）。本研究用非中国赛区 2025–2026 的 Oracle's Elixir 数据，将"地图侧（红/蓝方）优势"与"选秀优势"**首次在统计上分离**，得到三个互相印证的结论：(1) **后手 counterpick 在五条路、两个赛季均不带来胜率优势**（优势比 OR 全部落在 0.96–1.04，无一显著）；(2) **首选权也无独立胜率价值**（OR≈0.94，不显著）；(3) **蓝色方优势真实存在且跨年稳健**（OR≈1.23–1.31，p<0.001），但**它并不来自选秀**。本研究恰逢 Riot 于 2026 年推出 **First Selection** 规则（将"选边"与"先后手"解绑）——这既解释了数据中的关键变异，也使本课题成为对该规则的一次及时评估。
+职业 League of Legends 的解说、教练与观众普遍相信选秀（BP）阶段的两类"优势"能带来胜利：**首选权**（先选、抢 OP 英雄）与**后手反制选英雄**（counterpick，拿到信息后针对性选）。本研究用非中国赛区 2025–2026 的 Oracle's Elixir 数据，在统计上区分"地图侧（红/蓝方）优势"与"选秀优势"；**据我们所知，直接区分二者的既有研究较少**。本分析得到三个互相印证的结论：(1) **后手 counterpick 在五条路、两个赛季均不带来胜率优势**（优势比 OR 全部落在 0.96–1.04，无一显著）；(2) **首选权也无独立胜率价值**（OR≈0.94，不显著）；(3) **蓝色方优势真实存在且跨年稳健**（OR≈1.23–1.31，p<0.001），但**它并不来自选秀**。本研究恰逢 Riot 于 2026 年推出 **First Selection** 规则（将"选边"与"先后手"解绑）——这既解释了数据中的关键变异，也使本课题成为对该规则的一次及时评估。
 
 **进一步（2022–2026 五年一致）**：蓝色方优势来自**上半区早期资源**（首先锋每年多 15–25pp）＋结构性早期经济领先（15 分钟每年领先约 450–670 金），而**非控龙**（红方每年首龙更多 14–24pp）、**也非视野**（蓝红逐年几乎相等）。
 
-> **English (one line):** Champion-matchup quality matters in pro play, but the two draft levers everyone obsesses over — *first-pick priority* and *counter-pick timing* — do not convert to wins; and the real blue-side advantage is **not** a draft effect. We are the first to statistically separate map-side from draft, timed to Riot's 2026 *First Selection* reform.
+> **English (one line):** Champion-matchup quality matters in pro play, but the two draft levers everyone obsesses over — *first-pick priority* and *counter-pick timing* — do not convert to wins; and the real blue-side advantage is **not** a draft effect. To our knowledge, little prior work statistically separates map-side from draft; this analysis uses variation introduced by Riot's 2026 *First Selection* reform.
 
 ---
 
@@ -38,7 +31,7 @@
 
 ### 1.2 定位（关键：避免做成"老生常谈"）
 - **新颖点不是"蓝色方更强"**——这一点人人皆知，通常被归因于地图地形、视野、龙/男爵接近性、镜头视角等。
-- **新颖点是：第一次把"地图侧优势"与"选秀优势"在统计上分离开**，并量化两类"早期选秀优势"的真实大小。
+- **据我们所知，直接在统计上区分"地图侧优势"与"选秀优势"的既有研究较少**；本研究同时量化两类"早期选秀优势"的真实大小。
 
 ### 1.3 叙事框架（采纳并修正了外部反馈）
 不主张"选秀无用"（太绝对，且会被职业圈一句"draft 当然重要"驳回），而是**分两层精确表述**：
@@ -150,9 +143,9 @@
 > **首选权无独立胜率价值；蓝色方优势真实且跨年稳健，但不来自首选权。** 由于蓝色方过去恰恰要承担"先亮英雄"的首选权，原始 52.6% 的蓝方胜率其实**低估**了纯地图侧优势。
 
 ### 5.3 核心图 · Key figure
-见 [`figures/fig1_forest_draft_value.png`](../figures/fig1_forest_draft_value.png)：所有"选秀优势"（首选权 + 五路 counterpick × 两年）全部贴在 **OR=1（无效）线**上，唯有**蓝色方**（红点）明显偏出。完整 OR/CI 数值见 `数据_OR与置信区间.csv`。
+见 [`figures/fig1_forest_draft_value.png`](../../figures/fig1_forest_draft_value.png)：所有"选秀优势"（首选权 + 五路 counterpick × 两年）全部贴在 **OR=1（无效）线**上，唯有**蓝色方**（红点）明显偏出。完整 OR/CI 数值见 `数据_OR与置信区间.csv`。
 
-![图1 选秀优势森林图：选秀优势与蓝方优势的估计](../figures/fig1_forest_draft_value.png)
+![图1 选秀优势森林图：选秀优势与蓝方优势的估计](../../figures/fig1_forest_draft_value.png)
 
 ### 5.4 蓝色方优势来自哪里？上半区，而非控龙/视野（2022–2026 五年复现）⭐
 既然蓝色方优势**不是选秀效应**（§5.2–5.3），那它来自哪？逐年对比蓝/红方的可量化指标（非中国赛区，每年约 8,600–10,400 局）：
@@ -312,12 +305,8 @@
 
 ## 11. 下一步 · Next Steps
 
-1. ~~**拿对位胜率数据**（lolalytics/u.gg）~~ → ✅ **已用内部交叉拟合对位分完成**（§5.8，零外部数据）；外部单排版仍可作可选的互补稳健性。
-2. ~~跑 **§4.3 的 2×2**~~ → ✅ **已完成**：控制对位后 timing 五路仍 null；后手并不稳定买到更好对位（§5.8）。
-3. ~~跑 **§7 异质性** + **§8 选秀贡献分解**~~ → ✅ **均已完成**：英雄类型交互不显著（§5.8）；Elo R² 分解见 §5.6。
-4. ~~**稳健性**~~ → ✅ **已完成**（flex 子集、赛区/补丁 FE、第 5 手 vs 第 1 手，结论全部不变）。
-5. Scholar 精确查重 + 写 Related Work。（**仍待办**）
-6. **新增待办**：正式论文写作（LaTeX/投稿格式）；可选——外部单排对位数据互补、solo-queue 坐标机制验证（需 Riot 普通 API，暂不做）。
+1. Scholar 精确查重 + 写 Related Work。（**仍待办**）
+2. **新增待办**：正式论文写作（LaTeX/投稿格式）；可选——外部单排对位数据互补、solo-queue 坐标机制验证（需 Riot 普通 API，暂不做）。
 
 ---
 

@@ -61,10 +61,12 @@ roster changes, preparation differences, or within-series adaptation.
 
 ## Objectives, economy, and associational paths
 
-`paper_tables.py` reports side differences in objective ownership, gold, and
-experience, and models gold difference at 15 minutes using objective indicators
-and season dummies. Binary outcomes use a linear probability interpretation;
-gold and experience differences retain their natural units.
+`paper_tables.py` fits intercept-only models on blue-team rows for signed gold
+and experience differences, reporting the mean blue lead and its 95% confidence
+interval with one observation per game. For first-objective ownership, void-grub
+counts, and team vision score, it fits pooled OLS on `blue` with game-clustered
+standard errors; the coefficient is the blue-minus-red contrast. Binary contrasts
+are reported in percentage points. Void-grub comparisons use 2024 onward.
 
 The source identifies first-objective ownership but does not provide reliable
 event timestamps for first herald, dragon, tower, or blood in every file used
@@ -76,7 +78,8 @@ contributions or causal gold valuations.
 component and products of side-to-state and state-to-win coefficients. The main
 channels are first herald, first dragon, gold difference at 15, and first tower.
 Intervals use a **600-replicate game-cluster bootstrap**, preserving both team
-rows from each sampled game. `mediation_full.py` checks an expanded state set.
+rows from each sampled game. `mediation_full.py` checks a match-state benchmark
+(some objective counts are not strictly time-stamped before 15:00).
 
 This is an **associational path decomposition**, not causal mediation. The
 channels are mutually dependent and sequentially ordered; their ownership is
@@ -102,7 +105,8 @@ Mean grouped-fold AUC is **0.8343** for Logistic Regression, **0.8328** for Rand
 Forest, and **0.8331** for XGBoost. The models have similar predictive discrimination
 under the tested feature set and settings. AUC is not classification accuracy.
 Because objective timestamps are unavailable, this feature set should be
-described as a match-state predictive benchmark, not a pre-game model or a
+described as a match-state benchmark (some objective counts are not strictly
+time-stamped before 15:00), not a pre-game model or a
 strictly real-time 15-minute forecast. Similar AUC does not prove that all
 nonlinear models are unnecessary, nor does feature importance measure causality.
 
@@ -136,5 +140,6 @@ they are outside the current manuscript's central claims.
 [README.md](../README.md) for headline findings and commands,
 [VERIFICATION.md](VERIFICATION.md) for verification coverage, and
 [PAPER_STATUS.md](PAPER_STATUS.md) for the current manuscript scope.
-`report_bilingual.md` records an earlier analysis. For the current interpretation
+The [July 2026 bilingual draft](archive/report_bilingual_2026-07.md) records an
+earlier analysis before the LPLOL sample correction. For the current interpretation
 and scope, use this methods note and `PAPER_STATUS.md`.

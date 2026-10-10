@@ -3,7 +3,8 @@
     firstPick==1 is Blue 74.9% of the time (natural variation)
     firstPick  OR=0.939  95%CI[0.825,1.068]  p=0.34
     blue side  OR=1.269  95%CI[1.115,1.443]  p=0.000298
-    McFadden pseudo-R^2=0.0021  LR chi2=28.2 (df=2) p=7.66e-07
+    game-clustered joint Wald chi2(2)=14.05 p=0.000889
+    McFadden pseudo-R^2=0.0021  descriptive LR chi2=28.2 (df=2)
 
 (2) BLUE-SIDE ADVANTAGE by year  (result ~ blue, cluster SE)
     2022: blue OR=1.202  95%CI[1.114,1.297]  p=2.2e-06   (raw blue WR=0.523, n=10641 games)

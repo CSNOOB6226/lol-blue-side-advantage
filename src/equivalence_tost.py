@@ -1,9 +1,8 @@
 """
 B. EQUIVALENCE TESTS (TOST) for the draft-value nulls.
 
-A non-significant OR only says "we failed to reject 0"; a sceptic answers "you just lacked
-power". The Two One-Sided Tests (TOST) procedure turns this into a positive claim: we can
-*reject the presence of any effect larger than a pre-set negligible bound*.
+TOST assesses whether each tested log-odds association lies within specified
+bounds. It does not establish that all draft decisions have negligible effects.
 
 Smallest effect size of interest (SESOI). On the win-odds scale we treat an odds ratio inside
   * primary : OR in [1/1.10, 1.10]  (a +-10% change in odds — already tiny for one draft lever)
@@ -12,10 +11,8 @@ as practically null. TOST on theta = log(OR): reject "theta <= log(low)" AND "th
 Equivalence is established at alpha=0.05 iff the 90% CI of theta lies inside the bounds, i.e.
 p_TOST = max(p_lower, p_upper) < 0.05.
 
-We run it on every draft lever (first-pick + 10 counter-pick tests) and — as a contrast — on
-blue side, which SHOULD FAIL equivalence because it is a real effect. "Draft levers are
-statistically equivalent to null; blue side is not" is a strong, reviewer-proof way to state
-the result.
+We test first-pick priority, ten role/year reveal-gap associations, and blue side.
+Interpret equivalence only for the tested association and the stated bounds.
 
 Outputs: results/equivalence_tost.txt, results/equivalence_tost.csv
 """
@@ -67,7 +64,7 @@ def main():
     log("B. EQUIVALENCE (TOST) — is each draft lever statistically equivalent to null?")
     log(f"   bounds: primary OR∈[{np.exp(LOW1):.3f},{np.exp(HIGH1):.3f}], strict OR∈[0.95,1.05]\n")
 
-    log(" DRAFT LEVERS (expected: equivalent to null):")
+    log(" TESTED DRAFT ASSOCIATIONS:")
     th, se = fit_logor("result ~ firstPick + blue",
                        d26.dropna(subset=["firstPick", "blue", "result"]), "firstPick")
     recs.append(row("First pick (2026)", th, se))
@@ -78,17 +75,19 @@ def main():
             th, se = fit_logor("result ~ zgap + blue", s, "zgap")
             recs.append(row(f"Counterpick {role} {y}", th, se))
 
-    log("\n CONTRAST — blue side (expected: NOT equivalent, it is a real effect):")
+    log("\n CONTRAST — blue side:")
     th, se = fit_logor("result ~ blue", d26.dropna(subset=["blue", "result"]), "blue")
     recs.append(row("Blue side (2026)", th, se))
 
     fam = pd.DataFrame(recs)
-    n_draft = fam[fam.param != "Blue side (2026)"]
-    log(f"\n  SUMMARY: {int(n_draft.equivalent_10.sum())}/{len(n_draft)} draft levers are "
-        f"statistically EQUIVALENT to null at the ±10%-odds bound;")
-    log(f"           blue side is {'NOT ' if not fam.set_index('param').loc['Blue side (2026)','equivalent_10'] else ''}"
-        f"equivalent (as it should be — a genuine effect).")
-    log("  => The draft nulls are not 'absence of evidence': we can rule out any non-negligible effect.")
+    reveal = fam[fam.param.str.startswith("Counterpick ")]
+    log(f"\n  SUMMARY: {int(reveal.equivalent_10.sum())}/{len(reveal)} tested reveal-gap associations")
+    log("  meet equivalence within primary OR bounds [1/1.10, 1.10]; this is not a claim")
+    log("  about all draft decisions or effects outside the measured reveal-gap contrasts.")
+    first_equiv = fam.set_index("param").loc["First pick (2026)", "equivalent_10"]
+    log("  First-pick priority " + ("passes" if first_equiv else "does not pass") + " equivalence at these bounds.")
+    blue_equiv = fam.set_index("param").loc["Blue side (2026)", "equivalent_10"]
+    log("  Blue side " + ("passes" if blue_equiv else "does not pass") + " equivalence at these bounds.")
 
     fam.to_csv(os.path.join(cfg.RESULTS_DIR, "equivalence_tost.csv"), index=False)
     with open(os.path.join(cfg.RESULTS_DIR, "equivalence_tost.txt"), "w") as f:

@@ -1,10 +1,10 @@
 """
-Path analysis / causal mediation of the BLUE-SIDE win advantage, 2022-2026.
+Associational path decomposition of the BLUE-SIDE win contrast, 2022-2026.
 
-Causal chain (side is the treatment; in the coupled 2022-25 era side is assigned,
-so blue is a clean quasi-random treatment for a mediation decomposition):
+The graph organizes observed associations; side assignment and mediator-outcome
+confounding are not identified by these data, so this is not causal mediation:
 
-        blue ---> firstherald (+, top-side river, "the engine")
+        blue ---> firstherald (top-side river)
              ---> firstdragon (-, bottom-side river, a SUPPRESSOR)
              ---> gold@15  ---> firsttower  ---> WIN
 
@@ -34,7 +34,7 @@ import config as C
 from utils import load_teamgames
 
 MEDIATORS = ["firstherald", "firstdragon", "z_gold15", "firsttower"]
-PRETTY = {"firstherald": "first herald (+, top-side)", "firstdragon": "first dragon (-, suppressor)",
+PRETTY = {"firstherald": "first herald (top-side)", "firstdragon": "first dragon (-, suppressor)",
           "z_gold15": "gold@15 (SD)", "firsttower": "first tower"}
 RNG = np.random.default_rng(20260701)
 LOG: list[str] = []
@@ -104,7 +104,7 @@ def cluster_bootstrap(sub: pd.DataFrame, B: int = 600):
 def main():
     d = load_teamgames()
     rows = []
-    log("PATH-ANALYSIS MEDIATION of the blue-side win advantage (LPM, pp of win prob)")
+    log("ASSOCIATIONAL PATH DECOMPOSITION of the blue-side win contrast (LPM, pp of win prob)")
     log("indirect_j = a_j(blue->M_j) * b_j(M_j->win); total = direct + sum indirect_j\n")
     for y in (2022, 2023, 2024, 2025, 2026):
         sub = d[d.year == y]
@@ -124,14 +124,17 @@ def main():
         dci = f"  [CI {100*boot['direct'][0]:+.1f},{100*boot['direct'][1]:+.1f}]" if boot else ""
         log(f"    direct / unexplained residual : {100*pt['direct']:+5.1f} pp{dci}")
         share = 100 * pt['direct'] / pt['total'] if pt['total'] else np.nan
-        log(f"    (residual = {share:.0f}% of total -> map root cause OE cannot measure)\n")
+        log(f"    (residual = {share:.0f}% of total; unmeasured factors not identified)\n")
         rows.append(dict(year=y, channel="direct_residual", indirect_pp=100*pt['direct'],
                          a=np.nan, b=np.nan,
                          ci_lo=100*boot['direct'][0] if boot else np.nan,
                          ci_hi=100*boot['direct'][1] if boot else np.nan))
 
-    log("ROBUST 5-YEAR PATTERN: first herald is the ENGINE (positive, growing);")
-    log("first dragon is a SUPPRESSOR (blue wins DESPITE conceding it); large residual.")
+    for channel in ("firstherald", "firstdragon"):
+        pattern = "; ".join(f"{r['year']}: {r['indirect_pp']:+.2f} pp"
+                            for r in rows if r["channel"] == channel)
+        log(f"Associational {channel} path component by year: {pattern}.")
+    log("The adjusted residual does not identify a map-geometry contribution.")
     pd.DataFrame(rows).to_csv(os.path.join(C.RESULTS_DIR, "mediation_path.csv"), index=False)
     with open(os.path.join(C.RESULTS_DIR, "mediation_path.txt"), "w") as f:
         f.write("\n".join(LOG) + "\n")

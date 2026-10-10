@@ -8,7 +8,7 @@ Robustness for the counter-pick null:
 
   B. CHAMPION-CLASS HETEROGENEITY. An average ~0 could hide "counter-picking helps for
      carries / hurts for tanks". We split TOP counter-picking by archetype
-     (carry/bruiser/tank) and run an interaction LR test. Multiple-comparison discipline:
+     (carry/bruiser/tank) and run a game-clustered interaction Wald test. Multiple-comparison discipline:
      one pre-registered cut (top x class), report the interaction test, do not fish.
 
   C. FIXED-EFFECTS robustness. Top counter-pick OR with league + patch fixed effects (2026).
@@ -72,8 +72,13 @@ def part_a_flex(d):
             full = cp_or(dy, role)
             cl = cp_or(clean, role)
             if role == "top":
-                stable = dy[(~dy["top_champ"].isin(flex))]
-                # also require opponent top non-flex: approximate via clean+non-flex
+                # Keep both mirrored rows only when both observed top champions
+                # in the game are non-flex; clean reconstruction is also required.
+                stable_counts = dy.loc[
+                    dy["top_champ"].notna() & ~dy["top_champ"].isin(flex)
+                ].groupby("gameid").size()
+                stable_games = stable_counts[stable_counts == 2].index
+                stable = dy[dy.gameid.isin(stable_games)]
                 st = cp_or(stable[stable.clean_reconstruction == 1], role)
             else:
                 st = (np.nan,)*5
@@ -108,14 +113,19 @@ def part_b_heterogeneity(d):
                 log(f"      {a:<8}: n={len(s)} too small"); continue
             OR, lo, hi, p, _ = cp_or(s, "top")
             log(f"      {a:<8}: OR={OR:.3f} 95%CI[{lo:.3f},{hi:.3f}] p={p:.3g}  n={len(s)}")
-        # interaction LR test (non-clustered llf; a heterogeneity diagnostic)
         m0 = smf.logit("result ~ zgap + C(arch) + blue", dy).fit(disp=0)
-        m1 = smf.logit("result ~ zgap * C(arch) + blue", dy).fit(disp=0)
+        m1 = smf.logit("result ~ zgap * C(arch) + blue", dy).fit(
+            disp=0, cov_type="cluster", cov_kwds={"groups": dy.gameid})
+        interactions = [name for name in m1.params.index if name.startswith("zgap:C(arch)")]
+        restriction = np.zeros((len(interactions), len(m1.params)))
+        for i, name in enumerate(interactions):
+            restriction[i, m1.params.index.get_loc(name)] = 1
+        joint = m1.wald_test(restriction, scalar=True)
         lr = 2 * (m1.llf - m0.llf); ddf = int(m1.df_model - m0.df_model)
-        from scipy import stats
-        pval = stats.chi2.sf(lr, ddf)
-        log(f"      interaction LR chi2({ddf})={lr:.2f} p={pval:.3f} "
-            f"-> {'no' if pval>0.05 else 'some'} class heterogeneity in top counter-pick value")
+        log(f"      game-clustered interaction Wald chi2({int(joint.df_denom)})={joint.statistic:.2f} "
+            f"p={joint.pvalue:.3f} -> "
+            f"{'no evidence of' if joint.pvalue>0.05 else 'evidence of'} class heterogeneity in top counter-pick value")
+        log(f"      descriptive interaction LR chi2({ddf})={lr:.2f}")
     log("")
 
 

@@ -7,7 +7,8 @@ Core draft-value models (the paper's three headline results):
       the five roles, in either 2025 or 2026.
 
 Improvements over the pilot:
-  * McFadden pseudo-R^2 and a likelihood-ratio test for every model.
+  * McFadden pseudo-R^2 and a game-clustered joint Wald test for the joint model.
+    Likelihood-ratio chi-square is retained as a descriptive fit statistic.
   * Benjamini-Hochberg FDR correction across the 10-test counter-pick family
     (5 roles x 2 years) so we are not fooled by multiple comparisons.
 
@@ -38,7 +39,9 @@ def firstpick_vs_side(d26: pd.DataFrame):
     log(f"    firstPick==1 is Blue {100*share_blue:.1f}% of the time (natural variation)")
     log(f"    firstPick  OR={fp[0]:.3f}  95%CI[{fp[1]:.3f},{fp[2]:.3f}]  p={fp[3]:.3g}")
     log(f"    blue side  OR={bl[0]:.3f}  95%CI[{bl[1]:.3f},{bl[2]:.3f}]  p={bl[3]:.3g}")
-    log(f"    McFadden pseudo-R^2={m.prsquared:.4f}  LR chi2={m.llr:.1f} (df={int(m.df_model)}) p={m.llr_pvalue:.3g}")
+    joint = m.wald_test("firstPick = 0, blue = 0", scalar=True)
+    log(f"    game-clustered joint Wald chi2({int(joint.df_denom)})={joint.statistic:.2f} p={joint.pvalue:.3g}")
+    log(f"    McFadden pseudo-R^2={m.prsquared:.4f}  descriptive LR chi2={m.llr:.1f} (df={int(m.df_model)})")
     rows = [("First pick priority", "draft", 2026, *fp, t["result"].notna().sum())]
     rows.append(("Blue side (map)", "side", 2026, *bl, t["result"].notna().sum()))
     return rows

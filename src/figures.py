@@ -6,7 +6,7 @@ ORs) and writes PNGs to figures/. Bilingual (中文 + English) titles.
   fig2_blue_or_by_year.png      5-year stability of the blue OR (no 2026 structural break)
   fig3_did_eventstudy.png       DiD event study + parallel-trends check
   fig4_mediation_channels.png   blue-side edge decomposed by channel (2026, bootstrap CI)
-  fig5_herald_engine_trend.png  herald (engine, +) vs dragon (suppressor, -) over 2022-2026
+  fig5  associational herald and dragon paths over 2022-2026
 """
 from __future__ import annotations
 import os, sys
@@ -127,9 +127,9 @@ def fig3_did():
 def fig4_mediation_channels():
     m = pd.read_csv(os.path.join(RES, "mediation_path.csv"))
     m26 = m[m.year == 2026].copy()
-    label_map = {"firstherald": "首先锋 herald\n(engine +)", "firstdragon": "首龙 dragon\n(suppressor −)",
+    label_map = {"firstherald": "首先锋 herald", "firstdragon": "首龙 dragon\n(suppressor −)",
                  "z_gold15": "15min经济 gold", "firsttower": "首塔 tower",
-                 "direct_residual": "残差 direct\n(map, unmeasured)"}
+                 "direct_residual": "未解释残差\nunexplained residual"}
     m26 = m26[m26.channel.isin(label_map)]
     m26["lab"] = m26.channel.map(label_map)
     order = ["firstherald", "firstdragon", "z_gold15", "firsttower", "direct_residual"]
@@ -144,7 +144,7 @@ def fig4_mediation_channels():
         ax.text(i, v + (0.15 if v >= 0 else -0.15), f"{v:+.1f}", ha="center",
                 va="bottom" if v >= 0 else "top", fontsize=9)
     ax.set_ylabel("对蓝方胜率优势的贡献 (pp)\ncontribution to blue win edge (pp)", fontsize=10)
-    ax.set_title("蓝方优势的路径分解 (2026, 自助法95%CI)：先锋是引擎，龙是抑制器\n"
+    ax.set_title("蓝方优势的路径分解 (2026, 自助法95%CI)\n"
                  "Path decomposition of the blue-side edge (2026, bootstrap 95% CI)",
                  fontsize=11)
     plt.tight_layout()
@@ -156,14 +156,14 @@ def fig5_herald_trend():
     h = m[m.channel == "firstherald"].sort_values("year")
     dr = m[m.channel == "firstdragon"].sort_values("year")
     fig, ax = plt.subplots(figsize=(7.6, 4.6))
-    ax.plot(h.year, h.indirect_pp, "o-", color=BLUE, lw=2, ms=8, label="首先锋 herald (engine +)")
-    ax.plot(dr.year, dr.indirect_pp, "s-", color=RED, lw=2, ms=8, label="首龙 dragon (suppressor −)")
+    ax.plot(h.year, h.indirect_pp, "o-", color=BLUE, lw=2, ms=8, label="首先锋 herald")
+    ax.plot(dr.year, dr.indirect_pp, "s-", color=RED, lw=2, ms=8, label="首龙 dragon")
     ax.axhline(0, color="k", ls="--", lw=1)
     ax.set_xticks(h.year.astype(int))
     ax.set_ylabel("间接贡献 indirect effect (pp)", fontsize=11)
-    ax.set_title("首先锋(上半区)是引擎且逐年增强；首龙始终为负(抑制器)\n"
-                 "Herald (top-side) is the engine and grows; dragon stays negative",
-                 fontsize=11.5)
+    herald_pattern = ", ".join(f"{int(r.year)} {r.indirect_pp:+.1f}" for r in h.itertuples())
+    ax.set_title("先锋与龙的关联路径分量（逐年，百分点）\n"
+                 f"Herald path (pp): {herald_pattern}", fontsize=10)
     ax.legend(fontsize=9)
     plt.tight_layout()
     _save(fig, "fig5_herald_engine_trend.png")
@@ -188,8 +188,9 @@ def fig6_equivalence():
     ax.set_xscale("log"); ax.set_xticks([0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.2, 1.3])
     ax.set_xticklabels(["0.85", "0.9", "0.95", "1.0", "1.05", "1.1", "1.2", "1.3"])
     ax.set_xlabel("Win OR with 90% CI (TOST)  — inside green band ⇒ equivalent to null", fontsize=10)
-    ax.set_title("等价检验：选秀杠杆的90%CI落在±10%无效带内(证明可忽略)，唯蓝方越界\n"
-                 "Equivalence (TOST): draft levers fall inside the negligibility band; blue side does not",
+    reveal = e[e.param.str.startswith("Counterpick ")]
+    ax.set_title("等价检验：仅限测试的后手差关联与指定界限；首选未通过\n"
+                 f"TOST: {int(reveal.equivalent_10.sum())}/{len(reveal)} reveal-gap tests pass; first pick does not",
                  fontsize=11)
     ax.legend(loc="lower right", fontsize=9)
     plt.tight_layout()

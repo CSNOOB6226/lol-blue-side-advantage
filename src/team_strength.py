@@ -68,6 +68,19 @@ def add_pre_game_elo(d: pd.DataFrame) -> pd.DataFrame:
     return d
 
 
+def checked_nested_logit(formula: str, d: pd.DataFrame):
+    """Require an identifiable, converged fit for the nested R-squared comparison."""
+    import statsmodels.formula.api as smf
+    model = smf.logit(formula, d)
+    rank = np.linalg.matrix_rank(model.exog)
+    if rank != model.exog.shape[1]:
+        raise RuntimeError(f"Rank-deficient nested model: {rank}/{model.exog.shape[1]} columns")
+    fit = model.fit(disp=0, cov_type="cluster", cov_kwds={"groups": d.gameid})
+    if not fit.mle_retvals.get("converged", False):
+        raise RuntimeError(f"Nested model did not converge: {formula}")
+    return fit
+
+
 def main():
     d = load_teamgames()
     d = add_pre_game_elo(d)
@@ -105,15 +118,19 @@ def main():
     for role in C.ROLES:
         s26[f"z_{role}"] = z(s26[f"{role}_gap"]); zg.append(f"z_{role}")
     s26d = s26.dropna(subset=zg)
-    r_null = logit_cluster("result ~ z_rd", s26d).prsquared
-    r_side = logit_cluster("result ~ z_rd + blue", s26d).prsquared
-    r_draft = logit_cluster("result ~ z_rd + blue + firstPick + " + " + ".join(zg), s26d).prsquared
+    r_null = checked_nested_logit("result ~ z_rd", s26d).prsquared
+    r_side = checked_nested_logit("result ~ z_rd + blue", s26d).prsquared
+    # The fixed draft schedule makes firstPick and all five role gaps linearly
+    # dependent. Omit support gap to retain firstPick and the same fitted span.
+    draft_gaps = [name for name in zg if name != "z_sup"]
+    r_draft = checked_nested_logit(
+        "result ~ z_rd + blue + firstPick + " + " + ".join(draft_gaps), s26d).prsquared
     log("\nHOW MUCH DOES DRAFT MATTER?  McFadden pseudo-R^2, nested (2026, n=%d)" % len(s26d))
     log(f"  team strength (Elo) only          : {r_null:.4f}")
     log(f"  + blue side (map)                 : {r_side:.4f}   (+{r_side-r_null:.4f})")
-    log(f"  + first-pick + 5-lane counterpick : {r_draft:.4f}   (+{r_draft-r_side:.4f} from ALL draft timing)")
-    log("  -> crude team strength explains far more than map side, which in turn")
-    log("     dwarfs every draft-timing lever combined (~0 incremental R^2).")
+    log(f"  + first-pick + role-gap span      : {r_draft:.4f}   (+{r_draft-r_side:.4f} from draft timing)")
+    log("     (support gap omitted because it is redundant with firstPick and the other role gaps)")
+    log("  -> both side and draft-timing increments are small relative to pre-game Elo.")
 
     pd.DataFrame({"model": ["strength", "strength+side", "strength+side+draft"],
                   "mcfadden_r2": [r_null, r_side, r_draft]}).to_csv(

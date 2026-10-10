@@ -24,4 +24,4 @@ is NO evidence First Selection reduced the blue-side edge (if anything decoupled
 leagues drift slightly higher, consistent with strong teams self-selecting blue).
 The placebo (herald) is null as it should be. BUT pre-trends are imperfect and the
 panel is small, so the DiD is SUPPORTING evidence, not proof; the robust evidence
-is the descriptive 5-year stability of blue OR (1.21-1.31, incl. 2026), see figures.
+is the descriptive 5-year blue OR range (1.20-1.31, incl. 2026), see figures.

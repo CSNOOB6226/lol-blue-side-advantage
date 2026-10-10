@@ -1,5 +1,6 @@
 """
-Out-of-sample model comparison for the paper's early-state feature set.
+Out-of-sample model comparison for the paper's match-state benchmark.
+Some objective counts are not strictly time-stamped before 15:00.
 
 Purpose
 -------
@@ -296,7 +297,7 @@ def make_figure(summary: pd.DataFrame, importance: pd.DataFrame) -> None:
         capsize=2,
     )
     axes[1].set_xlabel("Random-forest permutation importance (AUC decrease)")
-    axes[1].set_title("B. Early-state feature importance")
+    axes[1].set_title("B. Match-state feature importance")
     axes[1].grid(axis="x", color="#D8DDE3", linewidth=0.6)
 
     fig.tight_layout(w_pad=2.0)
@@ -326,6 +327,7 @@ def main() -> None:
     importance.to_csv(os.path.join(C.RESULTS_DIR, "ml_feature_importance.csv"), **csv_options)
     make_figure(summary, importance)
 
+    print("Match-state benchmark: some objective counts are not strictly time-stamped before 15:00.")
     print(f"ML sample: {len(d):,} team-games / {d.gameid.nunique():,} games")
     print("\nMODEL COMPARISON")
     print(summary.to_string(index=False, float_format=lambda value: f"{value:.4f}"))

@@ -4,8 +4,8 @@ English, publication-quality figures for the MIT Sloan SSAC paper submission.
 Two figures, chosen to tell the whole story within SSAC's 2-figure abstract limit:
   fig_en1  blue-side odds ratio by season -> the advantage is stable and the 2026
            reform year shows no structural break
-  fig_en2  path decomposition with bootstrap CIs -> the herald engine / dragon
-           suppressor asymmetry plus the unexplained residual
+  fig_en2  path decomposition with bootstrap CIs -> herald and dragon path
+           components plus the unexplained residual
 
 Palette is the validated default (blue #2a78d6 / red #e34948): CVD-checked with
 scripts/validate_palette.js (worst-pair protan ΔE 21.6, normal-vision ΔE 32.3,
@@ -160,7 +160,7 @@ def fig2_path_decomposition():
 
     fig.text(0.125, -0.04,
              "Blue concedes the first dragon (−1.9 pp) yet still nets +5.2 pp. "
-             "The residual persists when the full pre-15-minute state is added.",
+             "Match-state benchmark: some objective counts are not strictly before 15:00.",
              fontsize=8.5, color=MUTED, ha="left")
     save(fig, "fig_en2_path_decomposition.png")
 

@@ -16,6 +16,6 @@ BLUE-SIDE OR: raw vs strength-controlled (result ~ blue [+ z_rd])
 HOW MUCH DOES DRAFT MATTER?  McFadden pseudo-R^2, nested (2026, n=9860)
   team strength (Elo) only          : 0.0914
   + blue side (map)                 : 0.0919   (+0.0005)
-  + first-pick + 5-lane counterpick : 0.0926   (+0.0007 from ALL draft timing)
-  -> crude team strength explains far more than map side, which in turn
-     dwarfs every draft-timing lever combined (~0 incremental R^2).
+  + first-pick + role-gap span      : 0.0926   (+0.0007 from draft timing)
+     (support gap omitted because it is redundant with firstPick and the other role gaps)
+  -> both side and draft-timing increments are small relative to pre-game Elo.
