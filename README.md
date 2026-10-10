@@ -1,6 +1,7 @@
 # Why Does Blue Side Win More Often?
 
 ### Separating map position from draft priority and tracing the early-game economy in professional *League of Legends*
+**Vincent Feng** · Independent research project (June 2026 – present) · Supervised by Weining Shen, Associate Professor of Statistics, University of California, Irvine
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2E7D32.svg)](LICENSE)
@@ -10,6 +11,8 @@ This repository contains a reproducible analysis of **43,037 professional games*
 (86,074 team-games) from **80 non-Chinese league labels**, covering 2022 through
 2 June 2026. It studies a persistent competitive imbalance: blue-side teams win
 more often than red-side teams.
+
+![Blue-side odds ratio by season, 2022–2026](figures/en/fig_en1_blue_or_by_season.png)
 
 The central challenge is identification. Before 2026, blue side was almost always
 bundled with first-pick priority. Riot Games' 2026 **First Selection** rule created
@@ -94,10 +97,10 @@ Historical draft-timing analyses are retained below the main side results:
 
 ## Key figures
 
-| Blue-side association by season | 2026 path decomposition |
-|---|---|
-| ![Blue-side odds ratio by season](figures/en/fig_en1_blue_or_by_season.png) | ![Associational path decomposition](figures/en/fig_en2_path_decomposition.png) |
-| The blue-side odds ratio remains above one in every observed season. | Recent blue-side gaps combine positive Herald, tower, and gold channels with a negative Dragon channel. |
+| 2026 path decomposition |
+|---|
+| ![Associational path decomposition](figures/en/fig_en2_path_decomposition.png) |
+| Recent blue-side gaps combine positive Herald, tower, and gold channels with a negative Dragon channel. |
 
 Additional English figures are available in [`figures/en/`](figures/en/): draft-lever
 coefficient plots, equivalence tests, the supplementary reform event study, and the
@@ -290,7 +293,7 @@ subject to their original terms; raw files are not redistributed here.
 
 ---
 
-**Author:** Vincent Feng · Independent research project, 2026
+**Author:** Vincent Feng · Independent research project (June 2026 – present) · supervised by Weining Shen (UC Irvine)
 
 See [current manuscript scope and audit coverage](docs/PAPER_STATUS.md) before using
 repository outputs in the paper. The fixed-effects audit checks all three displayed
