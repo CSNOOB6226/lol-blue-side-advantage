@@ -6,7 +6,7 @@ input directory without changing the source code. See data/raw/README.md.
 from __future__ import annotations
 import os
 
-# ---------------------------------------------------------------- paths
+# Paths.
 SRC_DIR      = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT    = os.path.dirname(SRC_DIR)
 RAW_DIR      = os.path.join(REPO_ROOT, "data", "raw")
@@ -20,7 +20,7 @@ RAW_DIR = os.path.abspath(os.path.expanduser(os.environ.get("LOL_RAW_DIR", RAW_D
 for _d in (DERIVED_DIR, RESULTS_DIR, FIGURES_DIR):
     os.makedirs(_d, exist_ok=True)
 
-# ---------------------------------------------------------------- raw files
+# Raw files.
 # year -> candidate filenames (first that exists wins)
 RAW_FILES = {
     year: [f"{year}_LoL_esports_match_data_from_OraclesElixir.csv"]
@@ -39,7 +39,7 @@ def find_raw(year: int) -> str | None:
     return None
 
 
-# ---------------------------------------------------------------- constants
+# Constants.
 # China leagues are excluded (LPL/LDL early-timing columns are largely missing in
 # Oracle's Elixir, so they cannot support this analysis).
 # EXACT match only: a substring test ("LPL" in s) would wrongly drop LPLOL,

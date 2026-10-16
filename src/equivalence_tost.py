@@ -1,18 +1,12 @@
-"""
-B. EQUIVALENCE TESTS (TOST) for the draft-value nulls.
+"""Run two one-sided equivalence tests for selected draft and side associations.
 
-TOST assesses whether each tested log-odds association lies within specified
-bounds. It does not establish that all draft decisions have negligible effects.
+The primary odds-ratio bounds are [1/1.10, 1.10]; the stricter bounds are
+[0.95, 1.05]. At alpha = 0.05, equivalence requires the 90% confidence interval
+for the log odds ratio to lie inside the bounds. The reported TOST p-value is
+the larger of the two one-sided p-values.
 
-Smallest effect size of interest (SESOI). On the win-odds scale we treat an odds ratio inside
-  * primary : OR in [1/1.10, 1.10]  (a +-10% change in odds — already tiny for one draft lever)
-  * strict  : OR in [0.95, 1.05]
-as practically null. TOST on theta = log(OR): reject "theta <= log(low)" AND "theta >= log(high)".
-Equivalence is established at alpha=0.05 iff the 90% CI of theta lies inside the bounds, i.e.
-p_TOST = max(p_lower, p_upper) < 0.05.
-
-We test first-pick priority, ten role/year reveal-gap associations, and blue side.
-Interpret equivalence only for the tested association and the stated bounds.
+Tests cover first-pick priority, ten role/year reveal-gap associations, and blue
+side. Conclusions apply only to these associations and the specified bounds.
 
 Outputs: results/equivalence_tost.txt, results/equivalence_tost.csv
 """

@@ -1,16 +1,9 @@
-"""
-English, publication-quality figures for the MIT Sloan SSAC paper submission.
+"""Draw English figures for the MIT Sloan SSAC submission.
 
-Two figures, chosen to tell the whole story within SSAC's 2-figure abstract limit:
-  fig_en1  blue-side odds ratio by season -> the advantage is stable and the 2026
-           reform year shows no structural break
-  fig_en2  path decomposition with bootstrap CIs -> herald and dragon path
-           components plus the unexplained residual
-
-Palette is the validated default (blue #2a78d6 / red #e34948): CVD-checked with
-scripts/validate_palette.js (worst-pair protan ΔE 21.6, normal-vision ΔE 32.3,
-both well above the gates). Blue/red here encode POLARITY (positive vs negative
-contribution), not category.
+The main figures summarize blue-side odds ratios by season and associational
+path components with bootstrap confidence intervals. The blue/red palette
+(#2a78d6 / #e34948) indicates positive/negative contribution and was checked
+with scripts/validate_palette.js.
 
 Output: figures/en/*.png at 300 dpi.
 """

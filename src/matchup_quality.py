@@ -1,31 +1,12 @@
-"""
-A. INTERNAL matchup-quality control (no external data).
+"""Estimate champion matchup-quality controls from Oracle's Elixir data.
 
-The sharpest open question from the report (§4.3): is the ~0 counter-pick effect because
-"revealing a lane later" is worthless, or is it hiding behind *which champion match-up* you
-end up with?  We answer it WITHOUT lolalytics/Riot data by building a champion-vs-champion
-match-up-quality score from Oracle's Elixir itself, then asking whether reveal timing adds
-anything once match-up quality is controlled.
+For each role, five-fold cross-fitting groups rows by gameid. The ordered
+champion-pair score is mean 15-minute lane gold difference in training games,
+shrunk toward the champion's training mean with k0 = 10. Held-out scores use
+champion identities and training outcomes, not the held-out game's outcome.
 
-MATCH-UP QUALITY (leakage-free).  For a lane, the directional 15-min lane gold diff
-(my_gold - opp_gold) is a clean measure of how good an ORDERED champion pairing (a vs b) is.
-We estimate it by 5-fold CROSS-FITTING keyed on gameid (both mirror rows of a game share a
-fold, so nothing leaks):
-    mq(a,b) = shrink( mean gd15 over TRAINING games of ordered pair (a,b),
-                      toward champion a's overall training mean ),  k0 = 10.
-This is a pre-game, draft-determined expectation of the lane's economy from champion identity
-only — it never uses the current game's play, so it is not circular and does not violate the
-"no post-outcome predictor" rule.
-
-TESTS (per lane; headline = top).
-  (1) result ~ z(mq) + blue                      -> does the drafted match-up predict winning?
-  (2) result ~ z(reveal_gap) + z(mq) + blue      -> does timing add anything beyond match-up?
-  (3) z(mq)  ~ z(reveal_gap)                      -> does revealing later even buy a better match-up?
-
-Expected story: match-up quality predicts wins (OR>1); reveal timing does not (OR~1) and barely
-moves after controlling mq; counter-picking buys at most a tiny match-up edge that does not
-convert. That isolates "you won because of the match-up you drafted, not the act of revealing
-late" — the clean separation from iTero.
+Models relate matchup quality and reveal timing to wins and relate reveal
+timing to matchup quality. Results are reported for each role.
 
 Outputs: results/matchup_quality.txt, results/matchup_quality.csv
 """
@@ -93,7 +74,7 @@ def analyze_lane(d: pd.DataFrame, role: str, headline: bool):
     base = or_ci(logit_cluster("result ~ zgap + blue", lf), "zgap")
     joint = logit_cluster("result ~ zgap + z_mq + blue", lf)
     gap_ctrl = or_ci(joint, "zgap"); mq_ctrl = or_ci(joint, "z_mq")
-    buy = ols_cluster("z_mq ~ zgap", lf)                    # does later reveal buy better matchup?
+    buy = ols_cluster("z_mq ~ zgap", lf)                    # Reveal timing and estimated matchup quality.
     buy_beta, buy_p = buy.params["zgap"], buy.pvalues["zgap"]
 
     if headline:

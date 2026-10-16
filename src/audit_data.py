@@ -1,10 +1,6 @@
 """
-Data-integrity gate for the derived team-game table. Run after build_dataset.py.
-
-Hard checks (exit non-zero on failure) verify the structural invariants every model
-relies on; soft checks print informative diagnostics. Keeping this in the repo makes the
-"is the data correct?" question answerable by anyone, and fails loudly if a future data
-refresh breaks an assumption.
+Check match pairing, outcomes and mirrored variables in the derived team-game table.
+The script exits with an error if a data check fails and prints sample summaries.
 
     python src/audit_data.py
 """
@@ -28,9 +24,9 @@ def soft(name, detail=""):
 
 def main():
     d = pd.read_csv(cfg.DERIVED_TEAMGAMES, low_memory=False)
-    print(f"AUDIT  {cfg.DERIVED_TEAMGAMES}\n  rows={len(d):,}  cols={d.shape[1]}  games={d.gameid.nunique():,}\n")
+    print(f"Data: {os.path.relpath(cfg.DERIVED_TEAMGAMES, cfg.REPO_ROOT)}\n  rows={len(d):,}  cols={d.shape[1]}  games={d.gameid.nunique():,}\n")
 
-    print(" STRUCTURAL (must pass):")
+    print("Data checks:")
     hard("each gameid maps to exactly one season", (d.groupby('gameid').year.nunique() == 1).all())
     rc = d.groupby("gameid").size()
     hard("exactly 2 team-rows per game", (rc == 2).all(), f"(bad={int((rc != 2).sum())})")
@@ -47,7 +43,7 @@ def main():
         frac = np.isclose(piv["Blue"], -piv["Red"], atol=1).mean()
         hard(f"{col} is mirror-symmetric (blue = -red)", frac > 0.999, f"(frac={frac:.4f})")
 
-    print("\n DIAGNOSTICS (informational):")
+    print("\nSample summary:")
     soft("firstPick blue-share by year",
          {int(y): round(d[(d.year == y) & (d.firstPick == 1)].blue.mean(), 3) for y in sorted(d.year.unique())})
     soft("games per season", {int(y): int((d.year == y).sum() // 2) for y in sorted(d.year.unique())})
@@ -57,8 +53,8 @@ def main():
 
     print()
     if FAILS:
-        sys.exit(f"❌ AUDIT FAILED: {FAILS} structural check(s) failed.")
-    print("✅ AUDIT PASSED: all structural invariants hold.")
+        sys.exit(f"Data check failed: {FAILS} check(s) failed.")
+    print("Data checks passed.")
 
 
 if __name__ == "__main__":

@@ -59,7 +59,7 @@ def build_year(year: int) -> pd.DataFrame | None:
     vis = (players.groupby(["gameid", "side"])["visionscore"].sum()
                   .rename("team_vision").reset_index())
 
-    # ---- per-lane reveal-order reconstruction ----------------------------
+    # Per-lane reveal-order reconstruction.
     picks = team[["gameid", "side", "pick1", "pick2", "pick3", "pick4", "pick5"]]
     # player rows also carry (usually blank) pick*/firstPick columns; drop them so
     # the merge below does not create pick1_x / pick1_y and break the match.
@@ -99,7 +99,7 @@ def build_year(year: int) -> pd.DataFrame | None:
     for p in wide_parts[1:]:
         wide = wide.merge(p, on=["gameid", "side"], how="outer")
 
-    # ---- assemble team-game rows -----------------------------------------
+    # Assemble team-game rows.
     keep = ["gameid", "year", "league", "patch", "date", "side", "result",
             "teamname", "teamid",
             "firstPick", "firstblood", "firstdragon", "firstherald", "firsttower",

@@ -1,21 +1,10 @@
-"""
-Complementary fixed-effects controls for the pooled blue-side estimate.
+"""Estimate blue-side associations with team fixed-effect controls.
 
-This script resolves the paper-readiness gap where the manuscript referenced
-team-strength controls from an earlier internal report that were not reproducible
-from this repository. The estimand is intentionally simple:
+Linear probability models start with result ~ blue, then add own team-season
+fixed effects and opponent-team fixed effects. These are descriptive robustness
+controls, not a causal identification strategy.
 
-  result ~ blue
-
-estimated as a linear probability model, then successively absorbing:
-  1) own team-season fixed effects
-  2) own team-season fixed effects + opponent-team fixed effects
-
-These are descriptive robustness controls, not a causal identification strategy.
-
-Outputs:
-  results/fixed_effects_controls.csv
-  results/fixed_effects_controls.txt
+Outputs: results/fixed_effects_controls.csv, results/fixed_effects_controls.txt
 """
 from __future__ import annotations
 

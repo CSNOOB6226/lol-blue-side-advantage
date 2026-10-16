@@ -1,35 +1,15 @@
-"""
-Out-of-sample model comparison for the paper's match-state benchmark.
-Some objective counts are not strictly time-stamped before 15:00.
+"""Compare logistic regression, random forest, and XGBoost out of sample.
 
-Purpose
--------
-This analysis does not identify causal effects.  It asks a narrower predictive
-question: under the same information set, does a flexible tree ensemble provide
-materially better out-of-sample discrimination than the paper's interpretable
-logistic benchmark?
+Five-fold GroupKFold keeps both team rows from each game together. Chronological
+checks train through 2024/test 2025 and train through 2025/test 2026. Logistic
+standardization is fitted within training folds. Metrics include AUC, log loss,
+Brier score, and the change in AUC when blue side is included.
 
-Models
-------
-* Logistic regression, with standardisation fitted inside each training fold.
-* Random forest (300 trees, maximum depth 8).
-* XGBoost (300 boosting rounds, maximum depth 4, learning rate 0.10).
+This is a predictive comparison, not a causal analysis. Some objective counts
+are not strictly time-stamped before 15:00.
 
-Validation
-----------
-* Five-fold GroupKFold, grouped by gameid so the two mirrored team-game rows
-  from one match never appear in different folds.
-* Two chronological checks: train through 2024/test 2025 and train through
-  2025/test 2026.
-* AUC, log loss, and Brier score are reported.  The incremental AUC of `blue`
-  is computed against the same model fitted without `blue`.
-
-Outputs
--------
-* results/ml_model_comparison.csv
-* results/ml_fold_metrics.csv
-* results/ml_feature_importance.csv
-* figures/en/fig_en6_ml_validation.png
+Outputs: results/ml_model_comparison.csv, results/ml_fold_metrics.csv,
+results/ml_feature_importance.csv, figures/en/fig_en6_ml_validation.png
 """
 from __future__ import annotations
 

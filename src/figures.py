@@ -1,12 +1,8 @@
-"""
-Publication figures. Reads results/*.csv (and the derived table for the by-year blue
-ORs) and writes PNGs to figures/. English titles and labels.
+"""Draw publication figures from committed analysis results.
 
-  fig1_forest_draft_value.png   core result: every draft lever hugs OR=1; only blue departs
-  fig2_blue_or_by_year.png      5-year stability of the blue OR (no 2026 structural break)
-  fig3_did_eventstudy.png       DiD event study + parallel-trends check
-  fig4_mediation_channels.png   blue-side edge decomposed by channel (2026, bootstrap CI)
-  fig5  associational herald and dragon paths over 2022-2026
+Reads results/*.csv and the derived team-game table. Writes figures/*.png with
+English titles and labels for draft-value odds ratios, seasonal blue-side odds
+ratios, the DiD event study, and associational path components.
 """
 from __future__ import annotations
 import os, sys

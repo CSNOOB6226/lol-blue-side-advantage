@@ -1,16 +1,9 @@
-"""
-Team-strength control via pre-game Elo (closes the "is blue side just strong teams
-on blue?" gap, and quantifies how little draft explains vs raw team strength).
+"""Estimate blue-side and draft associations with pre-game Elo controls.
 
-Elo is updated sequentially by date WITHIN each (year, league); the rating used as a
-covariate is each team's rating BEFORE the game, so it never uses the outcome being
-predicted (non-circular). rating_diff = own_pre_elo - opponent_pre_elo.
-
-Questions answered:
-  * Does the blue-side OR survive controlling team strength?   (yes -> not an artifact)
-  * Does first-pick stay null controlling strength?            (yes)
-  * How much of winning does crude team strength explain vs every draft lever?
-    (McFadden R^2 decomposition: strength >> map side >> all draft timing ~ 0)
+Ratings update in date order within each year and league. Each game uses the
+ratings available before its outcome; rating_diff is own minus opponent Elo.
+Models compare blue-side odds ratios, first-pick associations, and McFadden
+pseudo-R-squared with and without strength and draft controls.
 
 Outputs: results/team_strength.txt, results/team_strength_R2.csv
 """
@@ -93,7 +86,7 @@ def main():
     log(f"  OR per SD = {np.exp(m_str.params.z_rd):.3f}  McFadden R^2={m_str.prsquared:.4f}"
         f"  (rating_diff SD = {d.rating_diff.std():.0f} Elo)")
 
-    # ---- blue-side OR before vs after controlling strength (per year) ----
+    # Blue-side OR before vs after controlling strength (per year).
     log("\nBLUE-SIDE OR: raw vs strength-controlled (result ~ blue [+ z_rd])")
     log("  (coupled regime 2022-25: side assigned -> strength ~orthogonal, OR stable/up;")
     log("   decoupled 2026: teams CHOOSE side -> some raw edge is strong-teams-pick-blue.)")
@@ -106,14 +99,14 @@ def main():
         log(f"  {y}: blue OR {b0[0]:.3f} (raw) -> {b1[0]:.3f} [CI {b1[1]:.3f},{b1[2]:.3f} "
             f"p={b1[3]:.2g}] ({tag})")
 
-    # ---- 2026: first-pick null, strength-controlled ----
+    # First-pick association with strength controls, 2026.
     s26 = d[d.year == 2026].dropna(subset=["result", "blue", "firstPick", "z_rd"])
     fp0 = or_ci(logit_cluster("result ~ firstPick + blue", s26), "firstPick")
     fp1 = or_ci(logit_cluster("result ~ firstPick + blue + z_rd", s26), "firstPick")
     log("\n2026 FIRST-PICK OR: raw vs strength-controlled")
     log(f"  firstPick OR {fp0[0]:.3f} (p={fp0[3]:.2g})  ->  {fp1[0]:.3f} (p={fp1[3]:.2g}) with strength")
 
-    # ---- "how much does draft matter?" McFadden R^2 decomposition (2026) ----
+    # McFadden pseudo-R-squared by covariate set, 2026.
     zg = []
     for role in C.ROLES:
         s26[f"z_{role}"] = z(s26[f"{role}_gap"]); zg.append(f"z_{role}")

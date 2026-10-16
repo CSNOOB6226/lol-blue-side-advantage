@@ -1,36 +1,17 @@
-"""
-Difference-in-differences: did Riot's 2026 "First Selection" rule reduce the
-blue-side win advantage?
+"""Estimate changes in blue-side win rates around the 2026 First Selection rule.
 
-DESIGN.  First Selection decoupled side choice from pick order in 2026, but leagues
-operationalised it to very different degrees (LCK almost fully decoupled; LJL/AL
-barely). We use that variation as a CONTINUOUS treatment intensity:
+Treatment intensity is each league's 2026 share of first-pick team-games played
+on red side: D = 1 - P(blue | firstPick, 2026). The league-year panel covers
+2022-2026. Difference-in-differences and event-study models use league and year
+fixed effects, game-count weights, and standard errors clustered by league.
+First-herald rates provide a comparison outcome.
 
-    D_league = share of a league's 2026 first-pick team-games that are RED side
-             = 1 - P(blue | firstPick, 2026).
-    D = 0  -> still fully coupled (old regime);  D large -> strongly decoupled.
+Adoption intensity and side choice are not random. Interpretation depends on
+parallel trends and other policy-evaluation assumptions; the estimates describe
+changes in observed win rates rather than identifying an effect of map geometry.
 
-Panel: league x year (2022-2026). Outcome: blue-side win advantage in pp
-(100 * (blue win-rate - 0.5)). DiD / event study with league and year fixed effects,
-weighted by games, cluster-robust by league:
-
-    blue_adv_{l,t} = a_l + g_t + b * (D_l * 1[t=2026]) + e        (DiD)
-    blue_adv_{l,t} = a_l + g_t + sum_k b_k (D_l * 1[t=k]) + e      (event study)
-
-Paper hypothesis: the blue edge is a MAP effect the rule cannot touch, so b ~ 0
-(the rule did not fix blue side; Riot "turned the wrong knob").
-
-PLACEBO / POSITIVE CONTROL: rerun with blue-side FIRST-HERALD rate as the outcome.
-River geometry is unchanged by any draft rule, so decoupling must have ~0 effect on
-it; a null here shows the design is not manufacturing differences.
-
-HONESTY.  Adoption intensity is a league CHOICE, not random; validity rests on the
-parallel-trends check (pre-2026 event-study coefficients ~ 0). And because 2026 blue
-side is partly self-selected (strong teams choose it, see team_strength.py), the DiD
-estimand is the NET policy effect on observed blue win-rate, not a structural map
-parameter. We report it as a policy evaluation.
-
-Outputs: results/did_first_selection.txt, results/did_panel.csv, results/did_eventstudy.csv
+Outputs: results/did_first_selection.txt, results/did_panel.csv,
+results/did_eventstudy.csv
 """
 from __future__ import annotations
 import os, sys
@@ -61,7 +42,7 @@ def fit(formula, panel, rhs_terms):
 def main():
     d = load_teamgames()
 
-    # ---- treatment intensity D per league (from 2026) --------------------
+    # Treatment intensity D per league (from 2026).
     d26 = d[d.year == 2026]
     fp = d26[d26.firstPick == 1]
     dl = fp.groupby("league").agg(blue_share=("blue", "mean"), n_fp=("blue", "size"))
@@ -69,7 +50,7 @@ def main():
     dl["D"] = 1.0 - dl["blue_share"]           # 0 = coupled, higher = decoupled
     Dmap = dl["D"].to_dict()
 
-    # ---- league-year panel of blue advantage + placebo -------------------
+    # League-year panel of blue advantage + placebo.
     blue = d[d.blue == 1]
     panel = blue.groupby(["league", "year"]).agg(
         blue_wr=("result", "mean"),
@@ -95,7 +76,7 @@ def main():
     log("  most-decoupled leagues (D): " +
         ", ".join(f"{lg}={row.D:.2f}" for lg, row in top.iterrows()))
 
-    # ---- main DiD --------------------------------------------------------
+    # Main DiD.
     m = fit("blue_adv ~ C(league) + C(year) + D_post", panel, ["D_post"])
     b, se, p = m.params["D_post"], m.bse["D_post"], m.pvalues["D_post"]
     log("\nMAIN DiD  (outcome = blue-side win advantage, pp):")
@@ -104,7 +85,7 @@ def main():
     log(f"  -> at LCK-level decoupling (D~0.7): predicted change = {0.7*b:+.2f} pp "
         f"(a full-strength rule would need a large negative here).")
 
-    # ---- event study (2025 = reference year) ----------------------------
+    # Event study (2025 = reference year).
     for yy in (2022, 2023, 2024, 2026):
         panel[f"D_{yy}"] = panel["D"] * (panel["year"] == yy).astype(int)
     es = fit("blue_adv ~ C(league) + C(year) + D_2022 + D_2023 + D_2024 + D_2026",
@@ -128,7 +109,7 @@ def main():
         log("  CAUTION: pre-period coefficients are NOT flat (2024 already elevated) and")
         log("  the panel is small -> read the DiD as SUGGESTIVE, not clean identification.")
 
-    # ---- placebo / positive control: mechanical herald outcome ----------
+    # Placebo / positive control: mechanical herald outcome.
     mp = fit("herald_adv ~ C(league) + C(year) + D_post", panel, ["D_post"])
     bp, sep, pp_ = mp.params["D_post"], mp.bse["D_post"], mp.pvalues["D_post"]
     log("\nPLACEBO (outcome = blue-side FIRST-HERALD rate; map geometry is fixed):")

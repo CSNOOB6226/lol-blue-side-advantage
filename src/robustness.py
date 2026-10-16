@@ -1,17 +1,9 @@
-"""
-Robustness for the counter-pick null:
+"""Check reveal-timing associations across subsets and model specifications.
 
-  A. FLEX-PICK robustness. The reveal-order label is fuzzy when a champion can be
-     played in several roles (you may not actually know the opponent's role at lock-in).
-     We re-test on (i) games with a clean 5-lane reconstruction and (ii) games whose
-     top + opposing-top champions are role-STABLE (non-flex). The null must survive.
-
-  B. CHAMPION-CLASS HETEROGENEITY. An average ~0 could hide "counter-picking helps for
-     carries / hurts for tanks". We split TOP counter-picking by archetype
-     (carry/bruiser/tank) and run a game-clustered interaction Wald test. Multiple-comparison discipline:
-     one pre-registered cut (top x class), report the interaction test, do not fish.
-
-  C. FIXED-EFFECTS robustness. Top counter-pick OR with league + patch fixed effects (2026).
+Subset analyses use complete lane reconstructions and role-stable champions.
+Top-lane analyses compare carry, bruiser, and tank archetypes using a game-
+clustered interaction Wald test. A 2026 specification adds league and patch
+fixed effects.
 
 Outputs: results/robustness.txt, results/robustness_counterpick_subsets.csv
 """

@@ -1,20 +1,12 @@
-"""
-Core draft-value models (the paper's three headline results):
+"""Fit logistic models for first pick, map side, and lane reveal timing.
 
-  (1) First-pick priority has no independent win value once map side is controlled.
-  (2) Blue side has a real, cross-year win advantage.
-  (3) Counter-picking (revealing a lane later) does not convert to wins, in any of
-      the five roles, in either 2025 or 2026.
+Models cover first-pick associations adjusted for side, blue-side associations
+by year, and role-level reveal-gap associations in 2025 and 2026. Results include
+odds ratios, confidence intervals, game-clustered inference, McFadden pseudo-
+R-squared, and a joint Wald test. Likelihood-ratio chi-square is descriptive.
+Benjamini-Hochberg adjustment covers the ten role/year reveal-gap tests.
 
-Improvements over the pilot:
-  * McFadden pseudo-R^2 and a game-clustered joint Wald test for the joint model.
-    Likelihood-ratio chi-square is retained as a descriptive fit statistic.
-  * Benjamini-Hochberg FDR correction across the 10-test counter-pick family
-    (5 roles x 2 years) so we are not fooled by multiple comparisons.
-
-Outputs:
-  results/draft_value_ORs.csv   (forest-plot data: OR / CI / raw p / FDR p)
-  results/core_models.txt       (readable log)
+Outputs: results/draft_value_ORs.csv, results/core_models.txt
 """
 from __future__ import annotations
 import os, sys

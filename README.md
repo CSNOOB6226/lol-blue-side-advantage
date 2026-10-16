@@ -14,14 +14,14 @@ more often than red-side teams.
 
 ![Blue-side odds ratio by season, 2022–2026](figures/en/fig_en1_blue_or_by_season.png)
 
-The central challenge is identification. Before 2026, blue side was almost always
+Before 2026, blue side was almost always
 bundled with first-pick priority. Riot Games' 2026 **First Selection** rule created
 the first large sample in this dataset in which first pick could occur on red side.
 That variation makes map side and draft priority empirically distinguishable—although
 not randomly assigned—and allows the analysis to trace the observed blue-side gap
 through early objectives, 15-minute gold, and match outcome.
 
-> **Main finding.** The win association follows **map side** more closely than
+> The win association follows map side more closely than
 > first-pick priority. Blue side is associated with greater top-side objective control,
 > more first towers, and an **average lead of about 275 gold at 15 minutes**. Teams ahead at
 > 15 minutes win **73.96%** of games. These are observational associations, not a
@@ -59,7 +59,7 @@ actual counter-pick intent; see [PAPER_STATUS.md](docs/PAPER_STATUS.md).
 
 ## Headline results
 
-| Result | Estimate | Interpretation |
+| Result | Estimate | Notes |
 |---|---:|---|
 | Pooled blue-side win rate | **52.89%** | Blue won 22,764 of 43,037 games. |
 | Blue-side win odds, 2022–2026 | **OR 1.20–1.31** each season | The association is positive in all five observed seasons. |
@@ -78,7 +78,7 @@ effects and **+4.57 points** after opponent-team effects are added.
 
 Historical draft-timing analyses are retained below the main side results:
 
-| Supplementary result | Estimate | Interpretation |
+| Supplementary result | Estimate | Notes |
 |---|---:|---|
 | Counter-pick timing, 5 roles × 2 seasons | **0/10** FDR-significant | All ten tested reveal-gap associations are equivalent within a prespecified ±10% odds region. |
 
@@ -237,23 +237,23 @@ seed set in [`docs/literature_seed.csv`](docs/literature_seed.csv).
     └── archive/report_2026-07.md # historical draft
 ```
 
-## Interpretation boundaries
+## Limitations
 
 The findings have the following limitations:
 
-- **Observational design:** side and first-pick allocation are not randomized.
-- **First-pick uncertainty:** a non-significant coefficient is not proof of zero value;
-  its equivalence test does not pass the prespecified ±10% odds region.
-- **Objective timing:** the source identifies first-objective ownership but does not
+- Side and first-pick allocation are not randomized.
+- The non-significant first-pick coefficient is not proof of zero value; its
+  equivalence test does not pass the prespecified ±10% odds region.
+- The source identifies first-objective ownership but does not
   timestamp first Herald, Dragon, tower, or blood in the files used here. Their
   relationship with GD@15 is therefore descriptive, not a verified pre-15 causal effect.
-- **Path decomposition:** the components are associational and depend on the included
+- The path-decomposition components are associational and depend on the included
   channels; they are not causal mediation estimates.
-- **Reform analysis:** pre-reform trends are not sufficiently flat for a causal
+- Pre-reform trends are not sufficiently flat for a causal
   difference-in-differences interpretation. The event study is supplementary evidence.
-- **Unmeasured mechanisms:** the residual is compatible with spatial mechanisms, but it
+- The residual is compatible with spatial mechanisms, but it
   does not by itself prove that camera angle or map geometry is the root cause.
-- **Generalizability:** the sample excludes Chinese professional leagues and ends early
+- The sample excludes Chinese professional leagues and ends early
   in the 2026 season.
 
 ## Citation
@@ -281,6 +281,5 @@ subject to their original terms; raw files are not redistributed here.
 
 **Author:** Vincent Feng · Independent research project (June 2026 – present) · supervised by Weining Shen (UC Irvine)
 
-See [current manuscript scope and audit coverage](docs/PAPER_STATUS.md) before using
-repository outputs in the paper. The fixed-effects audit checks all three displayed
-estimates against the results CSV.
+See [current manuscript scope](docs/PAPER_STATUS.md) for the analyses included in the
+paper and [reproduction and checks](docs/VERIFICATION.md) for validation details.

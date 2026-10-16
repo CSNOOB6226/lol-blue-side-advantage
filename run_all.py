@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Reproduce everything.
+Run the analyses and generate tables and figures.
 
     python run_all.py              # analysis + figures from the committed derived table
     python run_all.py --from-raw   # also rebuild data/derived/* from data/raw/ CSVs
@@ -9,7 +9,7 @@ The default path needs no raw data: it reads data/derived/redblue_teamgames.csv.
 (committed) and regenerates every table in results/ and every figure in figures/.
 """
 from __future__ import annotations
-import argparse, os, subprocess, sys, time
+import argparse, os, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "src")
@@ -28,12 +28,11 @@ ANALYSIS = ["audit_data.py",                                   # validate before
 
 
 def run(script: str):
-    print(f"\n{'='*70}\n▶ {script}\n{'='*70}")
-    t = time.time()
+    print(f"Running {script}", flush=True)
     r = subprocess.run([sys.executable, os.path.join(SRC, script)])
     if r.returncode != 0:
-        sys.exit(f"✗ {script} failed (exit {r.returncode})")
-    print(f"✓ {script}  ({time.time()-t:.1f}s)")
+        sys.exit(f"{script} failed with exit code {r.returncode}.")
+    print(f"Finished {script}", flush=True)
 
 
 def main():
@@ -43,10 +42,10 @@ def main():
     args = ap.parse_args()
     configure_matplotlib_env(HERE)
     steps = (BUILD if args.from_raw else []) + ANALYSIS
-    print("Pipeline:", " -> ".join(steps))
+    print(f"Running {len(steps)} analysis steps.", flush=True)
     for s in steps:
         run(s)
-    print("\n✅ Done. See results/ (tables + logs) and figures/ (PNGs).")
+    print("Results saved in results/ and figures/.")
 
 
 if __name__ == "__main__":

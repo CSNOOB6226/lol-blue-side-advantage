@@ -1,26 +1,13 @@
-"""
-Associational path decomposition of the BLUE-SIDE win contrast, 2022-2026.
+"""Decompose the observed blue-side win contrast into match-state paths.
 
-The graph organizes observed associations; side assignment and mediator-outcome
-confounding are not identified by these data, so this is not causal mediation:
+Linear probability models use first herald, first dragon, gold difference at
+15 minutes, and first tower. The total association is split into an adjusted
+blue coefficient and components a_j * b_j, where a_j relates blue side to a
+path variable and b_j relates that variable to winning with all variables
+included. Confidence intervals use a whole-game cluster bootstrap.
 
-        blue ---> firstherald (top-side river)
-             ---> firstdragon (-, bottom-side river, a SUPPRESSOR)
-             ---> gold@15  ---> firsttower  ---> WIN
-
-We use linear probability models so effects are additive and the total decomposes as
-    total(blue->win) = direct + sum_j indirect_j,   indirect_j = a_j * b_j
-with a_j = blue->M_j and b_j = M_j->win (all mediators + blue in the outcome model).
-95% CIs come from a CLUSTER bootstrap that resamples whole games (both mirror rows).
-
-WHY PATH ANALYSIS AND NOT FULL (LATENT) SEM.  Our mediators are directly OBSERVED
-(herald/dragon/tower are binary indicators, gold@15 is measured), not latent
-constructs with multiple noisy indicators, so the measurement half of SEM is empty.
-The outcome and three of four mediators are BINARY, which violates the multivariate-
-normal ML assumption behind classic SEM fit statistics. Path analysis with a linear
-probability model + nonparametric cluster bootstrap keeps the same "decompose the
-effect along a hypothesized graph" logic while staying valid under binary,
-heteroskedastic, clustered data. (See docs/METHODS.md.)
+These are observed associations, not causal mediation effects: side assignment
+and mediator-outcome confounding are not identified. See docs/METHODS.md.
 
 Outputs: results/mediation_path.txt, results/mediation_path.csv
 """
