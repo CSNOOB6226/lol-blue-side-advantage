@@ -7,7 +7,7 @@ The complete supplementary materials are preserved in
 to access the manuscript path below.
 
 The current manuscript is the second revision, mathematical version:
-`supplementary/红蓝方研究/论文/第二版_改写稿/manuscript_en_math_revised.md`. The folder README inventories the available manuscript sources and figures. This manuscript prioritizes
+`supplementary/side_advantage/manuscript/revised_manuscript/manuscript_en_math_revised.md`. The folder README inventories the available manuscript sources and figures. This manuscript prioritizes
 map side, early objectives, and 15-minute economy, with predictive triangulation.
 Counter-pick analyses and their TOST/FDR results were removed because reveal order
 cannot establish actual counter-pick intent. Existing repository outputs remain

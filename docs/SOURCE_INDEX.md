@@ -1,19 +1,19 @@
-# 源代码索引
+# Source code index
 
-共 136 个源代码文件，包含主分析与补充研究代码。
+The project includes 137 source files: 27 main-analysis and test files, and 110 supplementary sources.
 
-主分析与测试可直接浏览。补充源码完整保存在 [supplementary.zip](../supplementary.zip)，
-下面的 `supplementary/` 路径表示压缩包内的位置；在仓库根目录解压后即可访问。
+Main sources can be browsed directly. Supplementary paths below refer to files inside
+[supplementary.zip](../supplementary.zip). Extract the archive at the repository root:
 
 ```bash
 python -m zipfile -e supplementary.zip .
 ```
 
-## 入口（1）
+## Entry point (1)
 
 - [run_all.py](../run_all.py)
 
-## src（20）
+## Analysis modules (20)
 
 - [src/audit_data.py](../src/audit_data.py)
 - [src/build_dataset.py](../src/build_dataset.py)
@@ -36,146 +36,7 @@ python -m zipfile -e supplementary.zip .
 - [src/team_strength.py](../src/team_strength.py)
 - [src/utils.py](../src/utils.py)
 
-## supplementary/其他/analysis（11）
-
-- `supplementary/其他/analysis/a1_core.py`
-- `supplementary/其他/analysis/a2_a3_a5.py`
-- `supplementary/其他/analysis/a6_ml.py`
-- `supplementary/其他/analysis/a7_robust.py`
-- `supplementary/其他/analysis/build_dataset.py`
-- `supplementary/其他/analysis/confirm_global.py`
-- `supplementary/其他/analysis/explore.py`
-- `supplementary/其他/analysis/explore2.py`
-- `supplementary/其他/analysis/global_explore.py`
-- `supplementary/其他/analysis/prep.py`
-- `supplementary/其他/analysis/verify_pub.py`
-
-## supplementary/其他/publishing（57）
-
-- `supplementary/其他/publishing/build_literature_review.py`
-- `supplementary/其他/publishing/build_topic1_docs.py`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/deck-slides.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/helpers.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-01.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-02.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-03.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-04.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-05.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-06.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-07.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-08.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-09.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-10.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-11.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-12.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-13.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-14.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/slide-15.mjs`
-- `supplementary/其他/publishing/presentations/toplane-strategy/slides/theme.mjs`
-- `supplementary/其他/publishing/reports/literature-review/build_lol_literature_report.py`
-- `supplementary/其他/publishing/reports/literature-review/check_lit_report.py`
-- `supplementary/其他/publishing/reports/literature-review/extract_docx_outline.py`
-- `supplementary/其他/publishing/reports/literature-review/make_render_contact.py`
-- `supplementary/其他/publishing/presentations/research-report/crop_report_assets.py`
-- `supplementary/其他/publishing/presentations/research-report/make_crop_contact.py`
-- `supplementary/其他/publishing/presentations/research-report/make_slide_modules.py`
-- `supplementary/其他/publishing/presentations/research-report/slides/deck-slides.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/helpers.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-01.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-02.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-03.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-04.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-05.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-06.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-07.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-08.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-09.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-10.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-11.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-12.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-13.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-14.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-15.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-16.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-17.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-18.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-19.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-20.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-21.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-22.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-23.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/slide-24.mjs`
-- `supplementary/其他/publishing/presentations/research-report/slides/theme.mjs`
-- `supplementary/其他/publishing/tests/test_bilingual_report_symmetry.py`
-- `supplementary/其他/publishing/tests/test_ml_importance.py`
-- `supplementary/其他/publishing/tests/test_topic3_report.py`
-
-## supplementary/其他/topics（10）
-
-- `supplementary/其他/topics/2026年非中国赛区潜在研究主题/生成研究主题报告.py`
-- `supplementary/其他/topics/代码/主题一_弱势上单策略/分析主题一_弱势上单策略.py`
-- `supplementary/其他/topics/代码/主题一_弱势上单策略/生成主题一_中英文报告.py`
-- `supplementary/其他/topics/代码/主题三_输出型上单经济门槛/分析主题三_输出型上单经济门槛.py`
-- `supplementary/其他/topics/代码/数据整理/生成非中国赛区上单数据.py`
-- `supplementary/其他/topics/代码/早期分析/坦克与输出型上单胜率逻辑回归_早期版本.py`
-- `supplementary/其他/topics/代码/早期分析/弱势上单效果分析_早期版本.py`
-- `supplementary/其他/topics/代码/早期分析/韩国赛区上单分析_早期版本.py`
-- `supplementary/其他/topics/代码/机器学习/分析两个主题_机器学习变量重要性.py`
-- `supplementary/其他/topics/代码/机器学习/变量重要性分析.py`
-
-## supplementary/其他/选秀迷思_已搁置（4）
-
-- `supplementary/其他/选秀迷思_已搁置/代码/draft_explore.py`
-- `supplementary/其他/选秀迷思_已搁置/代码/draft_figure.py`
-- `supplementary/其他/选秀迷思_已搁置/代码/draft_verify.py`
-- `supplementary/其他/选秀迷思_已搁置/代码/分析_先选权与蓝方分离.py`
-
-## supplementary/红蓝方研究/github_stuff（2）
-
-- `supplementary/红蓝方研究/github_stuff/lol_paper_audit/paper_readiness_audit.py`
-- `supplementary/红蓝方研究/github_stuff/lol_paper_audit/tests/test_paper_readiness_audit.py`
-
-## supplementary/红蓝方研究/代码（2）
-
-- `supplementary/红蓝方研究/代码/早期探索脚本/blue_side_mechanism.py`
-- `supplementary/红蓝方研究/代码/早期探索脚本/blue_side_mediation.py`
-
-## supplementary/红蓝方研究/归档（3）
-
-- `supplementary/红蓝方研究/归档/历史改写版_20260714/build_final_report_docx.py`
-- `supplementary/红蓝方研究/归档/历史改写版_20260714/repo改动/exploratory/first_selection_panel.py`
-- `supplementary/红蓝方研究/归档/历史改写版_20260714/repo改动/report_tables.py`
-
-## supplementary/红蓝方研究/报告（4）
-
-- `supplementary/红蓝方研究/报告/build_enhanced_final_report.py`
-- `supplementary/红蓝方研究/报告/build_interpretation_manual.py`
-- `supplementary/红蓝方研究/报告/build_teaching_final_report.py`
-- `supplementary/红蓝方研究/报告/table_checks/audit_tables.py`
-
-## supplementary/红蓝方研究/蓝方优势项目（13）
-
-- `supplementary/红蓝方研究/蓝方优势项目/api/riot_api.py`
-- `supplementary/红蓝方研究/蓝方优势项目/data/build_panel.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/01_phenomenon.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/02_rule_out_draft.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/03_structural_models.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/04_mediation.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/05_ml_validation.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/06_robustness.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/07_figure_mediation.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/08_residual_probe.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/09_apifree_chain.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/10_falsification.py`
-- `supplementary/红蓝方研究/蓝方优势项目/scripts/10_additional_robustness.py`
-
-## supplementary/红蓝方研究/论文（3）
-
-- `supplementary/红蓝方研究/论文/第二版_改写稿/build_manuscript_docx.py`
-- `supplementary/红蓝方研究/论文/第二版_改写稿/build_paper_assets.py`
-- `supplementary/红蓝方研究/论文/第二版_改写稿/build_path_figure.py`
-
-## tests（6）
+## Tests (6)
 
 - [tests/__init__.py](../tests/__init__.py)
 - [tests/test_config.py](../tests/test_config.py)
@@ -183,3 +44,191 @@ python -m zipfile -e supplementary.zip .
 - [tests/test_paper_claim_audit.py](../tests/test_paper_claim_audit.py)
 - [tests/test_results_regression.py](../tests/test_results_regression.py)
 - [tests/test_runtime.py](../tests/test_runtime.py)
+
+## supplementary/related_research/analysis (11)
+
+- `supplementary/related_research/analysis/a1_core.py`
+- `supplementary/related_research/analysis/a2_a3_a5.py`
+- `supplementary/related_research/analysis/a6_ml.py`
+- `supplementary/related_research/analysis/a7_robust.py`
+- `supplementary/related_research/analysis/build_dataset.py`
+- `supplementary/related_research/analysis/confirm_global.py`
+- `supplementary/related_research/analysis/explore.py`
+- `supplementary/related_research/analysis/explore2.py`
+- `supplementary/related_research/analysis/global_explore.py`
+- `supplementary/related_research/analysis/prep.py`
+- `supplementary/related_research/analysis/verify_pub.py`
+
+## supplementary/related_research/draft_exploration_archive/code (4)
+
+- `supplementary/related_research/draft_exploration_archive/code/analyze_first_pick_and_map_side.py`
+- `supplementary/related_research/draft_exploration_archive/code/draft_explore.py`
+- `supplementary/related_research/draft_exploration_archive/code/draft_figure.py`
+- `supplementary/related_research/draft_exploration_archive/code/draft_verify.py`
+
+## supplementary/related_research/publishing (2)
+
+- `supplementary/related_research/publishing/build_literature_review.py`
+- `supplementary/related_research/publishing/build_topic1_docs.py`
+
+## supplementary/related_research/publishing/presentations/research-report (4)
+
+- `supplementary/related_research/publishing/presentations/research-report/crop_report_assets.py`
+- `supplementary/related_research/publishing/presentations/research-report/make_crop_contact.py`
+- `supplementary/related_research/publishing/presentations/research-report/make_slide_modules.py`
+- `supplementary/related_research/publishing/presentations/research-report/render_english_report_assets.py`
+
+## supplementary/related_research/publishing/presentations/research-report/slides (27)
+
+- `supplementary/related_research/publishing/presentations/research-report/slides/deck-slides.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/helpers.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-01.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-02.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-03.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-04.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-05.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-06.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-07.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-08.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-09.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-10.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-11.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-12.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-13.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-14.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-15.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-16.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-17.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-18.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-19.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-20.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-21.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-22.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-23.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/slide-24.mjs`
+- `supplementary/related_research/publishing/presentations/research-report/slides/theme.mjs`
+
+## supplementary/related_research/publishing/presentations/toplane-strategy/slides (18)
+
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/deck-slides.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/helpers.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-01.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-02.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-03.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-04.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-05.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-06.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-07.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-08.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-09.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-10.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-11.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-12.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-13.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-14.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/slide-15.mjs`
+- `supplementary/related_research/publishing/presentations/toplane-strategy/slides/theme.mjs`
+
+## supplementary/related_research/publishing/reports/literature-review (4)
+
+- `supplementary/related_research/publishing/reports/literature-review/build_lol_literature_report.py`
+- `supplementary/related_research/publishing/reports/literature-review/check_lit_report.py`
+- `supplementary/related_research/publishing/reports/literature-review/extract_docx_outline.py`
+- `supplementary/related_research/publishing/reports/literature-review/make_render_contact.py`
+
+## supplementary/related_research/publishing/tests (3)
+
+- `supplementary/related_research/publishing/tests/test_english_reports.py`
+- `supplementary/related_research/publishing/tests/test_ml_importance.py`
+- `supplementary/related_research/publishing/tests/test_topic3_report.py`
+
+## supplementary/related_research/topics/2026_non_chinese_league_research_topics (1)
+
+- `supplementary/related_research/topics/2026_non_chinese_league_research_topics/build_research_topics_report.py`
+
+## supplementary/related_research/topics/code/data_preparation (1)
+
+- `supplementary/related_research/topics/code/data_preparation/build_non_chinese_league_toplane_data.py`
+
+## supplementary/related_research/topics/code/early_analysis (3)
+
+- `supplementary/related_research/topics/code/early_analysis/early_korean_league_toplane_analysis.py`
+- `supplementary/related_research/topics/code/early_analysis/early_tank_vs_carry_logistic.py`
+- `supplementary/related_research/topics/code/early_analysis/early_weakside_effects.py`
+
+## supplementary/related_research/topics/code/machine_learning (2)
+
+- `supplementary/related_research/topics/code/machine_learning/analyze_topic_feature_importance.py`
+- `supplementary/related_research/topics/code/machine_learning/feature_importance.py`
+
+## supplementary/related_research/topics/code/topic1_weakside_toplane (2)
+
+- `supplementary/related_research/topics/code/topic1_weakside_toplane/analyze_weakside_toplane.py`
+- `supplementary/related_research/topics/code/topic1_weakside_toplane/build_topic1_report.py`
+
+## supplementary/related_research/topics/code/topic3_carry_toplane_gold_threshold (1)
+
+- `supplementary/related_research/topics/code/topic3_carry_toplane_gold_threshold/analyze_carry_toplane_gold_threshold.py`
+
+## supplementary/side_advantage/archive/revision_20260714 (1)
+
+- `supplementary/side_advantage/archive/revision_20260714/build_final_report_docx.py`
+
+## supplementary/side_advantage/archive/revision_20260714/repository_changes (1)
+
+- `supplementary/side_advantage/archive/revision_20260714/repository_changes/report_tables.py`
+
+## supplementary/side_advantage/archive/revision_20260714/repository_changes/exploratory (1)
+
+- `supplementary/side_advantage/archive/revision_20260714/repository_changes/exploratory/first_selection_panel.py`
+
+## supplementary/side_advantage/blue_side_project/api (1)
+
+- `supplementary/side_advantage/blue_side_project/api/riot_api.py`
+
+## supplementary/side_advantage/blue_side_project/data (1)
+
+- `supplementary/side_advantage/blue_side_project/data/build_panel.py`
+
+## supplementary/side_advantage/blue_side_project/scripts (11)
+
+- `supplementary/side_advantage/blue_side_project/scripts/01_phenomenon.py`
+- `supplementary/side_advantage/blue_side_project/scripts/02_rule_out_draft.py`
+- `supplementary/side_advantage/blue_side_project/scripts/03_structural_models.py`
+- `supplementary/side_advantage/blue_side_project/scripts/04_mediation.py`
+- `supplementary/side_advantage/blue_side_project/scripts/05_ml_validation.py`
+- `supplementary/side_advantage/blue_side_project/scripts/06_robustness.py`
+- `supplementary/side_advantage/blue_side_project/scripts/07_figure_mediation.py`
+- `supplementary/side_advantage/blue_side_project/scripts/08_residual_probe.py`
+- `supplementary/side_advantage/blue_side_project/scripts/09_apifree_chain.py`
+- `supplementary/side_advantage/blue_side_project/scripts/10_additional_robustness.py`
+- `supplementary/side_advantage/blue_side_project/scripts/10_falsification.py`
+
+## supplementary/side_advantage/code/early_exploration (2)
+
+- `supplementary/side_advantage/code/early_exploration/blue_side_mechanism.py`
+- `supplementary/side_advantage/code/early_exploration/blue_side_mediation.py`
+
+## supplementary/side_advantage/github_stuff/lol_paper_audit (1)
+
+- `supplementary/side_advantage/github_stuff/lol_paper_audit/paper_readiness_audit.py`
+
+## supplementary/side_advantage/github_stuff/lol_paper_audit/tests (1)
+
+- `supplementary/side_advantage/github_stuff/lol_paper_audit/tests/test_paper_readiness_audit.py`
+
+## supplementary/side_advantage/manuscript/revised_manuscript (3)
+
+- `supplementary/side_advantage/manuscript/revised_manuscript/build_manuscript_docx.py`
+- `supplementary/side_advantage/manuscript/revised_manuscript/build_paper_assets.py`
+- `supplementary/side_advantage/manuscript/revised_manuscript/build_path_figure.py`
+
+## supplementary/side_advantage/reports (3)
+
+- `supplementary/side_advantage/reports/build_enhanced_final_report.py`
+- `supplementary/side_advantage/reports/build_interpretation_manual.py`
+- `supplementary/side_advantage/reports/build_teaching_final_report.py`
+
+## supplementary/side_advantage/reports/table_checks (1)
+
+- `supplementary/side_advantage/reports/table_checks/audit_tables.py`

@@ -23,18 +23,8 @@ for _d in (DERIVED_DIR, RESULTS_DIR, FIGURES_DIR):
 # ---------------------------------------------------------------- raw files
 # year -> candidate filenames (first that exists wins)
 RAW_FILES = {
-    2022: ["2022年英雄联盟职业比赛原始数据.csv",
-           "2022_LoL_esports_match_data_from_OraclesElixir.csv"],
-    2023: ["2023年英雄联盟职业比赛原始数据.csv",
-           "2023_LoL_esports_match_data_from_OraclesElixir.csv"],
-    2024: ["2024年英雄联盟职业比赛原始数据.csv",
-           "2024_LoL_esports_match_data_from_OraclesElixir.csv"],
-    2025: ["2025年英雄联盟职业比赛原始数据.csv",
-           "2025_LoL_esports_match_data_from_OraclesElixir.csv"],
-    # 2026 primary file already excludes China; the generic name is also accepted
-    2026: ["2026年非中国赛区比赛数据.csv",
-           "2026年英雄联盟职业比赛原始数据.csv",
-           "2026_LoL_esports_match_data_from_OraclesElixir.csv"],
+    year: [f"{year}_LoL_esports_match_data_from_OraclesElixir.csv"]
+    for year in range(2022, 2027)
 }
 
 DERIVED_TEAMGAMES = os.path.join(DERIVED_DIR, "redblue_teamgames.csv.gz")

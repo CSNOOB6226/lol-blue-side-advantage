@@ -1,12 +1,14 @@
-# 复现与验证
+# Reproduction and Verification
 
-本文记录分析的运行环境、已完成的检查和已知限制。主分析默认读取仓库内的
-`data/derived/redblue_teamgames.csv.gz`；从原始数据重建的说明见
-[使用说明](../使用说明.md)和[数据来源](../data/raw/README.md)。
+This document records the analysis environment, completed checks, and known limitations.
+The main analysis reads the committed `data/derived/redblue_teamgames.csv.gz` by default.
+See the [reproduction guide](../USAGE.md) and [data documentation](../data/raw/README.md)
+for rebuilding from raw inputs.
 
-## 检查入口
+## Verification commands
 
-在仓库根目录、安装 `requirements-tested.txt` 中的依赖后运行：
+After installing the dependencies in `requirements-tested.txt`, run these commands
+at the repository root:
 
 ```bash
 python -m unittest discover -s tests
@@ -14,53 +16,57 @@ python src/audit_data.py
 python src/paper_claim_audit.py
 ```
 
-完整分析与作图使用 `python run_all.py`。
-[GitHub 持续集成](https://github.com/CSNOOB6226/lol-blue-side-advantage/actions)
-执行单元测试、数据审计和文档结果审计；它不包含完整分析流水线。
+Run `python run_all.py` for the complete analysis and figures.
+[GitHub continuous integration](https://github.com/CSNOOB6226/lol-blue-side-advantage/actions)
+runs unit tests, the data audit, and the documented-results audit; it does not run
+the complete analysis pipeline.
 
-## 完整分析验证（2026-10-10）
+## Complete analysis verification (2026-10-10)
 
-以下记录来自基于提交 `5642429` 的工作副本，运行环境为 macOS、Python 3.13；
-直接依赖版本见 `requirements-tested.txt`。
+The following records come from a working copy based on commit `5642429`, using
+macOS and Python 3.13. Direct dependency versions are in `requirements-tested.txt`.
 
-| 检查 | 结果 |
+| Check | Result |
 |---|---|
-| 完整分析 `python run_all.py` | 全部通过，75.449 秒 |
-| 主仓库单元测试 | 16 项通过，0.153 秒 |
-| `make check` | 通过，0.183 秒 |
-| README 主要数值与重新生成的结果 | 一致 |
-| Elo 嵌套模型 | 满秩并收敛，伪 R² 为 0.0926 |
+| Complete analysis, `python run_all.py` | All steps passed; 75.449 seconds |
+| Main repository unit tests | 16 passed; 0.153 seconds |
+| `make check` | Passed; 0.183 seconds |
+| Headline README values versus regenerated results | Consistent |
+| Nested Elo model | Full rank and converged; pseudo-R² = 0.0926 |
 
-15 分钟蓝方平均经济领先为 274.61，95% CI [246.26, 302.95]。
-该完整流水线记录来自 macOS；完整流水线在 Ubuntu 上的运行尚未验证。
+The mean blue-side gold lead at minute 15 was 274.61, with 95% CI [246.26, 302.95].
+This complete-pipeline record is from macOS; a complete run on Ubuntu has not yet
+been verified.
 
-## 数据与补充材料
+## Data and supplementary materials
 
-主数据包含 86,074 条队伍比赛记录，对应 43,037 场比赛。
-无损压缩后的 CSV 内容校验值（解压后 SHA-256）为：
+The main dataset contains 86,074 team-game records from 43,037 games.
+The SHA-256 checksum of the decompressed CSV content is:
 
 ```text
 99594186fae7af18af0c83711b6eaf2491e8efc98804014c478b07f6686dfe90
 ```
 
-补充材料位于 `supplementary.zip`，顶层目录为 `supplementary/`，包含 191 个文件。
-其中有 64 个 Python 文件和 45 个 JavaScript 模块；连同主分析与测试，共 136 个源码文件。
-用途、可选依赖和输入条件见[补充材料说明](../supplementary/README.md)，
-完整路径见[源码索引](SOURCE_INDEX.md)。
+`supplementary.zip` contains 192 files under the top-level `supplementary/` directory,
+including 65 Python files and 45 JavaScript modules. Together with the main analysis
+and tests, the repository provides 137 source files. See the
+[supplementary guide](../supplementary/README.md) for purposes, optional dependencies,
+and required inputs, and the [source index](SOURCE_INDEX.md) for full paths.
 
-部分历史文稿的链接目标、Word 模板和原始报告图片未随源码包分发；
-相关报告构建代码可能需要自行准备输入文档、图片或系统字体。
+Some historical manuscript link targets, Word templates, and original report images
+are not distributed in the source archive. Related report builders may require
+separately supplied documents, images, or system fonts.
 
-## 早期验证记录
+## Earlier verification records
 
-| 日期 | 验证范围与结果 |
+| Date | Scope and results |
 |---|---|
-| 2026-09-24 | 完整主分析 14 个步骤完成；主仓库单元测试 13 项、补充论文材料审计测试 6 项通过；91 个 Python 文件和 45 个 JavaScript 模块语法检查通过。 |
-| 2026-10-01 | 单元测试、数据审计和结果审计通过；数据内容与模型设定未变，未重新运行完整分析。 |
-| 2026-10-07 | macOS、Python 3.13.12 下，13 项单元测试、数据结构审计及结果与文档一致性审计通过；91 个 Python 文件语法检查通过，数据校验值一致；未重新运行完整分析。 |
+| 2026-09-24 | All 14 main-analysis steps completed; 13 main repository unit tests and 6 supplementary manuscript-audit tests passed; syntax checks passed for 91 Python files and 45 JavaScript modules. |
+| 2026-10-01 | Unit tests, data audit, and result audit passed; data content and model specifications were unchanged, and the complete analysis was not rerun. |
+| 2026-10-07 | On macOS with Python 3.13.12, 13 unit tests, the structural data audit, and the results/documentation consistency audit passed; syntax checks passed for 91 Python files, and the data checksum matched; the complete analysis was not rerun. |
 
-## 范围与限制
+## Scope and limitations
 
-- 已记录的分析运行使用随包附带的派生数据，没有重新下载或更新原始 CSV，也未执行全量 `--from-raw` 重建。
-- `team_strength.py` 的历史运行中出现过一次 `statsmodels` 最大似然未收敛警告。程序完成，已发布结果的回归检查通过；这不等于每个模型都获得了可靠收敛，引用详细模型估计前仍应复核优化诊断。
-- 补充研究、Word 构建和演示稿源码经过语法与收录检查，未全部重新生成历史报告或演示稿。额外输入、字体和调用接口见[补充材料说明](../supplementary/README.md)。
+- Recorded analysis runs used the packaged derived dataset. They did not download or update raw CSV files, or execute a complete `--from-raw` rebuild.
+- A historical run of `team_strength.py` produced a `statsmodels` maximum-likelihood convergence warning. The program completed and regression checks for the published outputs passed. This does not establish reliable convergence for every model; review optimizer diagnostics before citing detailed model estimates.
+- Supplementary research, Word builders, and presentation source code passed syntax and inventory checks, but historical reports and presentations were not all regenerated. See the [supplementary guide](../supplementary/README.md) for additional inputs, fonts, and calling interfaces.

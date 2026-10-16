@@ -8,8 +8,8 @@ Oracle's Elixir's own terms, so they are **not** stored in this repository.
 
 1. Go to **https://oracleselixir.com/tools/downloads**.
 2. Download the yearly match-data CSVs for **2022, 2023, 2024, 2025, 2026**.
-3. Place them in this folder (`data/raw/`). Either the English or the
-   author's Chinese filenames are recognised (see `src/config.py::RAW_FILES`), e.g.:
+3. Place them in this folder (`data/raw/`) using these filenames
+   (see `src/config.py::RAW_FILES`):
 
    ```
    data/raw/2022_LoL_esports_match_data_from_OraclesElixir.csv

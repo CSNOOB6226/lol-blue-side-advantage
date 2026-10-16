@@ -26,7 +26,7 @@ venv/
 node_modules/
 .pytest_cache/
 .ruff_cache/
-**/数据/原始数据/*.csv
+**/data/raw/*.csv
 **/api/cache/
 .riotkey
 *.key

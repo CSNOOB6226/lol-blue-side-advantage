@@ -5,8 +5,7 @@ draft priority, and early-game economy. Statistical inference, associational
 decomposition, and prediction address different questions. The observational
 design does not establish a causal effect of map side or draft priority.
 
-中文说明：当前研究报告的是关联。蓝方与一选权并非随机分配；路径分解不是因果中介，
-机器学习比较也不能验证因果机制。历史后手时机分析保留为补充材料。
+Historical reveal-order analyses are retained as supplementary material.
 
 ## Data and paired observations
 
@@ -140,6 +139,6 @@ they are outside the current manuscript's central claims.
 [README.md](../README.md) for headline findings and commands,
 [VERIFICATION.md](VERIFICATION.md) for verification coverage, and
 [PAPER_STATUS.md](PAPER_STATUS.md) for the current manuscript scope.
-The [July 2026 bilingual draft](archive/report_bilingual_2026-07.md) records an
+The [July 2026 historical draft](archive/report_2026-07.md) records an
 earlier analysis before the LPLOL sample correction. For the current interpretation
 and scope, use this methods note and `PAPER_STATUS.md`.

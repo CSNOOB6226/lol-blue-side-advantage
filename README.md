@@ -27,19 +27,6 @@ through early objectives, 15-minute gold, and match outcome.
 > 15 minutes win **73.96%** of games. These are observational associations, not a
 > claim that one objective or map position causally determines the result.
 
-<details>
-<summary><strong>中文摘要</strong></summary>
-
-本仓库使用 Oracle's Elixir 的 2022–2026 年职业比赛数据，研究蓝方胜率为什么持续
-高于红方。最终样本包含 43,037 场比赛、86,074 个 team-game 和 80 个非中国赛区标签。
-
-2026 年 First Selection 规则使地图方与一选权不再完全绑定。联合模型中，蓝方仍与
-胜利显著相关，而一选权没有检测到独立关联；但一选权置信区间仍然较宽，因此不能断言
-其价值为零。蓝方更常拿到首只峡谷先锋和一塔、更少拿到首条小龙，并在 15 分钟平均
-领先约 275 经济。整套分析强调相关性、稳健性和可复现性，不把路径分解解释为因果中介。
-
-</details>
-
 ## Analysis overview
 
 The analysis combines paired match data, statistical inference, and predictive
@@ -115,11 +102,10 @@ time-stamped before 15:00).
 
 ## Quick start
 
-中文运行与目录说明：[使用说明.md](使用说明.md)。
+For setup and directory details, see [USAGE.md](USAGE.md).
 Supplementary research scripts, report builders, and presentation source modules
 are preserved in [`supplementary.zip`](supplementary.zip); see the
 [extraction instructions](supplementary/README.md).
-
 
 Python 3.10 or later is required; the release was tested with Python 3.13.
 For the exact direct dependency versions used in that run, install
@@ -205,7 +191,7 @@ any model is estimated.
 
 See [`docs/METHODS.md`](docs/METHODS.md) for the statistical rationale and
 [`results/`](results/) for the current generated estimates. The
-[July 2026 bilingual draft](docs/archive/report_bilingual_2026-07.md) is historical
+[July 2026 historical draft](docs/archive/report_2026-07.md) is historical
 and predates the LPLOL sample correction.
 The literature-review search, screening, and extraction plan is documented in
 [`docs/LITERATURE_REVIEW.md`](docs/LITERATURE_REVIEW.md), with a machine-readable
@@ -248,7 +234,7 @@ seed set in [`docs/literature_seed.csv`](docs/literature_seed.csv).
     ├── METHODS.md
     ├── LITERATURE_REVIEW.md
     ├── literature_seed.csv
-    └── archive/report_bilingual_2026-07.md # historical draft
+    └── archive/report_2026-07.md # historical draft
 ```
 
 ## Interpretation boundaries

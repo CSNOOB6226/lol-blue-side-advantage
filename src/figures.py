@@ -1,6 +1,6 @@
 """
 Publication figures. Reads results/*.csv (and the derived table for the by-year blue
-ORs) and writes PNGs to figures/. Bilingual (中文 + English) titles.
+ORs) and writes PNGs to figures/. English titles and labels.
 
   fig1_forest_draft_value.png   core result: every draft lever hugs OR=1; only blue departs
   fig2_blue_or_by_year.png      5-year stability of the blue OR (no 2026 structural break)
@@ -23,7 +23,7 @@ import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-plt.rcParams["font.sans-serif"] = ["Arial Unicode MS"]
+plt.rcParams["font.sans-serif"] = ["DejaVu Sans"]
 plt.rcParams["axes.unicode_minus"] = False
 
 import config as cfg
@@ -62,16 +62,15 @@ def fig1_forest():
     ax.set_xscale("log")
     ax.set_xticks([0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4])
     ax.set_xticklabels(["0.8", "0.9", "1.0", "1.1", "1.2", "1.3", "1.4"])
-    ax.set_xlabel("胜率优势比 Win Odds Ratio (95% CI) — per SD later reveal / vs baseline", fontsize=11)
-    ax.set_title("赢得BP ≠ 赢得比赛：选秀优势不转化为胜利，唯蓝色方(地图侧)有效\n"
-                 "Winning the draft ≠ winning the game — non-China pro LoL 2025–2026\n"
+    ax.set_xlabel("Win Odds Ratio (95% CI) — per SD later reveal / vs baseline", fontsize=11)
+    ax.set_title("Winning the draft ≠ winning the game — non-China pro LoL 2025–2026\n"
                  "(counter-pick family: 0/10 significant, 0/10 survive FDR)", fontsize=11)
     from matplotlib.lines import Line2D
     leg = [Line2D([0], [0], marker="o", color="w", markerfacecolor=DARK, markersize=9, label="2026"),
            Line2D([0], [0], marker="s", color="w", markerfacecolor=GREY, markersize=9, label="2025"),
            Line2D([0], [0], marker="o", color="w", markerfacecolor=RED, markersize=9, label="Blue side (map)")]
     ax.legend(handles=leg, loc="lower right", fontsize=9, framealpha=0.9)
-    ax.text(1.008, yt[0] + 0.4, "OR=1\n无效 no effect", fontsize=8, va="bottom")
+    ax.text(1.008, yt[0] + 0.4, "OR=1\nno association", fontsize=8, va="bottom")
     plt.tight_layout()
     _save(fig, "fig1_forest_draft_value.png")
 
@@ -90,15 +89,14 @@ def fig2_blue_by_year():
                 fmt="o-", color=BLUE, ecolor=BLUE, capsize=4, lw=2, ms=8)
     ax.axhline(1.0, color="k", ls="--", lw=1)
     ax.axvspan(2025.5, 2026.5, color=RED, alpha=0.08)
-    ax.text(2026, df.OR.min() - 0.02, "First Selection\n新规 (2026)", color=RED,
+    ax.text(2026, df.OR.min() - 0.02, "First Selection\nreform (2026)", color=RED,
             ha="center", va="top", fontsize=9)
     for _, r in df.iterrows():
         ax.annotate(f"{r.OR:.2f}", (r.year, r.hi), textcoords="offset points",
                     xytext=(0, 6), ha="center", fontsize=9)
     ax.set_xticks(df.year.astype(int))
-    ax.set_ylabel("蓝色方胜率优势比 Blue-side win OR", fontsize=11)
-    ax.set_title("蓝色方优势跨五年稳定，2026新规后无结构性下降\n"
-                 "Blue-side advantage is stable 2022–2026; no break after First Selection",
+    ax.set_ylabel("Blue-side win OR", fontsize=11)
+    ax.set_title("Blue-side advantage is stable 2022–2026; no break after First Selection",
                  fontsize=11.5)
     plt.tight_layout()
     _save(fig, "fig2_blue_or_by_year.png")
@@ -114,9 +112,8 @@ def fig3_did():
                 fmt="o", color=RED, capsize=4, ms=10, label="treatment year (2026)")
     ax.axhline(0.0, color="k", ls="--", lw=1)
     ax.set_xticks(es.year.astype(int))
-    ax.set_ylabel("解耦×年 对蓝方优势的影响 (pp)\nDiD coef: decoupling × year on blue adv.", fontsize=10)
-    ax.set_title("First Selection 的DiD事件研究：2026无削弱效应(甚至为正)\n"
-                 "Did First Selection reduce blue advantage? DiD event study — no (point estimate +)\n"
+    ax.set_ylabel("DiD coefficient: decoupling × year on blue advantage (pp)", fontsize=10)
+    ax.set_title("First Selection reform: supplementary DiD event study\n"
                  "note: 2024 already elevated ⇒ imperfect parallel trends, read as suggestive",
                  fontsize=10.5)
     ax.legend(fontsize=9, loc="upper left")
@@ -127,9 +124,9 @@ def fig3_did():
 def fig4_mediation_channels():
     m = pd.read_csv(os.path.join(RES, "mediation_path.csv"))
     m26 = m[m.year == 2026].copy()
-    label_map = {"firstherald": "首先锋 herald", "firstdragon": "首龙 dragon\n(suppressor −)",
-                 "z_gold15": "15min经济 gold", "firsttower": "首塔 tower",
-                 "direct_residual": "未解释残差\nunexplained residual"}
+    label_map = {"firstherald": "First Herald", "firstdragon": "First Dragon\n(suppressor −)",
+                 "z_gold15": "Gold at 15 minutes", "firsttower": "First Tower",
+                 "direct_residual": "Unexplained\nresidual"}
     m26 = m26[m26.channel.isin(label_map)]
     m26["lab"] = m26.channel.map(label_map)
     order = ["firstherald", "firstdragon", "z_gold15", "firsttower", "direct_residual"]
@@ -143,9 +140,8 @@ def fig4_mediation_channels():
     for i, v in enumerate(m26.indirect_pp):
         ax.text(i, v + (0.15 if v >= 0 else -0.15), f"{v:+.1f}", ha="center",
                 va="bottom" if v >= 0 else "top", fontsize=9)
-    ax.set_ylabel("对蓝方胜率优势的贡献 (pp)\ncontribution to blue win edge (pp)", fontsize=10)
-    ax.set_title("蓝方优势的路径分解 (2026, 自助法95%CI)\n"
-                 "Path decomposition of the blue-side edge (2026, bootstrap 95% CI)",
+    ax.set_ylabel("Contribution to blue-side win advantage (pp)", fontsize=10)
+    ax.set_title("Path decomposition of the blue-side edge (2026, bootstrap 95% CI)",
                  fontsize=11)
     plt.tight_layout()
     _save(fig, "fig4_mediation_channels.png")
@@ -156,13 +152,13 @@ def fig5_herald_trend():
     h = m[m.channel == "firstherald"].sort_values("year")
     dr = m[m.channel == "firstdragon"].sort_values("year")
     fig, ax = plt.subplots(figsize=(7.6, 4.6))
-    ax.plot(h.year, h.indirect_pp, "o-", color=BLUE, lw=2, ms=8, label="首先锋 herald")
-    ax.plot(dr.year, dr.indirect_pp, "s-", color=RED, lw=2, ms=8, label="首龙 dragon")
+    ax.plot(h.year, h.indirect_pp, "o-", color=BLUE, lw=2, ms=8, label="First Herald")
+    ax.plot(dr.year, dr.indirect_pp, "s-", color=RED, lw=2, ms=8, label="First Dragon")
     ax.axhline(0, color="k", ls="--", lw=1)
     ax.set_xticks(h.year.astype(int))
-    ax.set_ylabel("间接贡献 indirect effect (pp)", fontsize=11)
+    ax.set_ylabel("Associational path component (pp)", fontsize=11)
     herald_pattern = ", ".join(f"{int(r.year)} {r.indirect_pp:+.1f}" for r in h.itertuples())
-    ax.set_title("先锋与龙的关联路径分量（逐年，百分点）\n"
+    ax.set_title("Herald and Dragon paths by season\n"
                  f"Herald path (pp): {herald_pattern}", fontsize=10)
     ax.legend(fontsize=9)
     plt.tight_layout()
@@ -189,8 +185,7 @@ def fig6_equivalence():
     ax.set_xticklabels(["0.85", "0.9", "0.95", "1.0", "1.05", "1.1", "1.2", "1.3"])
     ax.set_xlabel("Win OR with 90% CI (TOST)  — inside green band ⇒ equivalent to null", fontsize=10)
     reveal = e[e.param.str.startswith("Counterpick ")]
-    ax.set_title("等价检验：仅限测试的后手差关联与指定界限；首选未通过\n"
-                 f"TOST: {int(reveal.equivalent_10.sum())}/{len(reveal)} reveal-gap tests pass; first pick does not",
+    ax.set_title(f"TOST: {int(reveal.equivalent_10.sum())}/{len(reveal)} reveal-gap tests pass; first pick does not",
                  fontsize=11)
     ax.legend(loc="lower right", fontsize=9)
     plt.tight_layout()
@@ -209,8 +204,7 @@ def fig7_matchup():
     ax.axvline(1.0, color="k", ls="--", lw=1)
     ax.set_yticks(y); ax.set_yticklabels(order); ax.invert_yaxis()
     ax.set_xlabel("Win Odds Ratio per SD", fontsize=11)
-    ax.set_title("对位质量能预测胜负，后手时机不能（控制对位后仍≈1）\n"
-                 "Match-up quality predicts wins; counter-pick timing does not (internal OE control)",
+    ax.set_title("Match-up quality predicts wins; counter-pick timing does not (internal OE control)",
                  fontsize=11)
     ax.legend(fontsize=9, loc="lower right")
     plt.tight_layout()

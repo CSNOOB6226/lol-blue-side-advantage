@@ -1,42 +1,50 @@
-# 补充研究与历史源码
+# Supplementary research and historical sources
 
-主分析之外的相关代码完整保存在根目录的 [supplementary.zip](../supplementary.zip) 中。
+Related analyses, report builders and presentation sources are included in
+[supplementary.zip](../supplementary.zip). The default analysis does not require extraction.
 
-先在仓库根目录解压，压缩包会恢复下面列出的 `supplementary/` 目录；默认主分析不需要解压。
+From the repository root, run:
 
 ```bash
 python -m zipfile -e supplementary.zip .
 ```
 
-这里保存主分析之外的相关代码。原有研究目录之间的关系尽量保留，主入口仍为仓库根目录的 `run_all.py`。
+The archive extracts into `supplementary/`. The main analysis entry point remains
+`run_all.py` at the repository root.
 
-| 目录 | 用途与运行条件 |
+| Directory | Contents and requirements |
 |---|---|
-| `红蓝方研究/蓝方优势项目/` | 原始研究链，含面板、统计脚本和结果 CSV。各脚本按编号执行；重建面板读取根目录 `data/raw/` 或 `LOL_RAW_DIR`。首次作图前建立 `figures/`。`api/riot_api.py` 为可选数据接口，密钥从环境变量读取。 |
-| `红蓝方研究/代码/早期探索脚本/` | 早期机制和中介探索；读取根目录 `data/raw/` 或 `LOL_RAW_DIR`。 |
-| `红蓝方研究/论文/第二版_改写稿/` | 论文 Markdown、图片及文稿/图片构建程序。部分图片构建程序使用系统字体；需要本机具有相应字体。 |
-| `红蓝方研究/报告/` | 报告构建代码与原始 Markdown。历史构建脚本仍可能需要原报告图片或 Word 模板；这些二进制文档不随代码包分发。 |
-| `红蓝方研究/github_stuff/lol_paper_audit/` | 独立的早期论文材料审计工具及其单元测试。输入约定属于早期项目，不代替根目录的结果审计。 |
-| `红蓝方研究/归档/` | 被替代的报告构建及实验脚本；只作为代码历史参考，其中的旧样本不用于当前结论。 |
-| `其他/analysis/` | 上单资源配置、英雄类型及其他探索，含分析面板和配套 CSV。部分脚本使用相对工作目录，需从 `supplementary/其他/` 启动。 |
-| `其他/topics/代码/` | 主题一弱势上单、主题三经济门槛、数据整理和机器学习。相关分析表保存在 `其他/topics/数据/`；重建时需将年度原始 CSV 放到该目录的 `原始数据/`。 |
-| `其他/选秀迷思_已搁置/` | 早期选秀探索源码与 CSV，按历史分析保存。 |
-| `其他/publishing/` | Word 构建、文档检查和两套演示稿源码。`build_topic1_docs.py` 需要自行提供 `inputs/topic1_source.txt`。文档检查需要先生成对应 Word 文件。 |
-| `其他/publishing/presentations/toplane-strategy/` | 上单策略演示稿的模块化页面源码与数据。 |
-| `其他/publishing/presentations/research-report/` | 研究报告演示稿源码和图片素材。重新裁切图片前，需提供 `其他/publishing/reports/research-report/docx-render/` 下的原报告页面图片。 |
-| `其他/publishing/reports/literature-review/` | 文献综述报告构建与检查脚本；检查前需生成对应 Word 文件，联系表脚本读取此目录下的 `rendered_lit_report/` 图片。 |
+| `side_advantage/blue_side_project/` | Historical analysis pipeline, panel and result tables. Run numbered scripts in order. Panel reconstruction reads root `data/raw/` or `LOL_RAW_DIR`; create `figures/` before plotting. `api/riot_api.py` is optional and reads credentials from environment variables. |
+| `side_advantage/code/early_exploration/` | Early mechanism and mediation explorations; raw inputs come from root `data/raw/` or `LOL_RAW_DIR`. |
+| `side_advantage/manuscript/revised_manuscript/` | English manuscript sources, figures and document builders. Some figure builders require locally available fonts. |
+| `side_advantage/reports/` | Historical reports, interpretation guides and builders. Some require report images or Word templates that are not distributed. |
+| `side_advantage/github_stuff/lol_paper_audit/` | Early manuscript audit tool and unit tests. Its input conventions differ from the main results audit. |
+| `side_advantage/archive/` | Superseded report builders and exploratory scripts. Older samples are not used for the current conclusions. |
+| `related_research/analysis/` | Top-lane resource allocation, champion archetypes and related explorations with data panels and result tables. Some scripts use paths relative to `supplementary/related_research/`. |
+| `related_research/topics/code/` | Weak-side top lane, carry top-lane gold thresholds, data preparation and machine learning. Analysis tables are in `related_research/topics/data/`; rebuilding requires annual raw CSVs in that directory's `raw/` subdirectory. |
+| `related_research/topics/2026_non_chinese_league_research_topics/` | Historical research-topic report builder. |
+| `related_research/draft_exploration_archive/` | Historical draft-priority explorations and data. |
+| `related_research/publishing/` | Report builders and checks. `build_topic1_docs.py` requires `inputs/topic1_source.txt`; document checks require the corresponding generated Word files. |
+| `related_research/publishing/presentations/toplane-strategy/` | Modular top-lane strategy slides and source data. |
+| `related_research/publishing/presentations/research-report/` | Research-report slides and image assets. Re-cropping requires rendered report-page images in `related_research/publishing/reports/research-report/docx-render/`. |
+| `related_research/publishing/reports/literature-review/` | Literature-review report builders and checks. The contact-sheet utility reads generated images in `rendered_lit_report/`. |
 
-## 可选依赖
+## Optional dependencies
 
-在仓库根目录运行：
+From the repository root:
 
 ```bash
 python -m pip install -r requirements-supplementary.txt
 ```
 
-演示稿 `.mjs` 文件是模块化页面定义，调用方需要提供 `presentation` 与 `ctx` 绘图接口；它们本身不是独立命令行导出工具。图片素材已保存在对应 `assets/` 子目录。
+Presentation `.mjs` files define modular slide pages. The calling application must
+supply the `presentation` and `ctx` drawing interfaces; these modules are not standalone
+command-line exporters. Referenced images are included in the corresponding `assets/` directories.
 
-## 验证范围
+## Verification scope
 
-已对 Python 与 JavaScript 源码进行语法检查，完成主分析的运行与结果检查，并执行独立论文材料审计工具的单元测试。
-补充研究脚本和 Word/演示稿构建代码没有全部重新执行；其输入文档、系统字体和历史目录约定需按各脚本准备。
+The main analysis has recorded execution and result checks. Supplementary Python and
+JavaScript sources are checked for syntax, and the independent manuscript audit has unit tests.
+Historical research and report/presentation builders have not all been re-executed;
+prepare external documents, fonts and inputs according to each script. Original team and
+player names in source data retain their original spelling.
