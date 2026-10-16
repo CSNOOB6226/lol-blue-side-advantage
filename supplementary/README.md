@@ -22,6 +22,9 @@ python -m zipfile -e supplementary.zip .
 | `其他/topics/代码/` | 主题一弱势上单、主题三经济门槛、数据整理和机器学习。相关分析表保存在 `其他/topics/数据/`；重建时需将年度原始 CSV 放到该目录的 `原始数据/`。 |
 | `其他/选秀迷思_已搁置/` | 早期选秀探索源码与 CSV，按历史分析保存。 |
 | `其他/publishing/` | Word 构建、文档检查和两套演示稿源码。`build_topic1_docs.py` 需要自行提供 `inputs/topic1_source.txt`。文档检查需要先生成对应 Word 文件。 |
+| `其他/publishing/presentations/toplane-strategy/` | 上单策略演示稿的模块化页面源码与数据。 |
+| `其他/publishing/presentations/research-report/` | 研究报告演示稿源码和图片素材。重新裁切图片前，需提供 `其他/publishing/reports/research-report/docx-render/` 下的原报告页面图片。 |
+| `其他/publishing/reports/literature-review/` | 文献综述报告构建与检查脚本；检查前需生成对应 Word 文件，联系表脚本读取此目录下的 `rendered_lit_report/` 图片。 |
 
 ## 可选依赖
 
