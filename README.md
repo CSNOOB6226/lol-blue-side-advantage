@@ -1,7 +1,7 @@
 # Why Does Blue Side Win More Often?
 
 ### Separating map position from draft priority and tracing the early-game economy in professional *League of Legends*
-**Vincent Feng** · Independent research project (June 2026 – present) · Supervised by Weining Shen, Associate Professor of Statistics, University of California, Irvine
+**Vincent Feng** · Research project (June 2026 – present) · Supervised by Weining Shen, Associate Professor of Statistics, University of California, Irvine
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2E7D32.svg)](LICENSE)
@@ -279,7 +279,7 @@ subject to their original terms; raw files are not redistributed here.
 
 ---
 
-**Author:** Vincent Feng · Independent research project (June 2026 – present) · supervised by Weining Shen (UC Irvine)
+**Author:** Vincent Feng · Research project (June 2026 – present) · supervised by Weining Shen (UC Irvine)
 
 See [current manuscript scope](docs/PAPER_STATUS.md) for the analyses included in the
 paper and [reproduction and checks](docs/VERIFICATION.md) for validation details.
