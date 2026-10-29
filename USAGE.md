@@ -1,7 +1,6 @@
 # Professional League of Legends Research: Reproduction Guide
 
-This repository provides a reproducible analysis pipeline for the map-side study,
-along with source code for related exploratory analyses, reports, and presentations.
+This repository provides a reproducible analysis pipeline for the map-side study.
 
 ## Directory guide
 
@@ -12,8 +11,6 @@ along with source code for related exploratory analyses, reports, and presentati
 | `results/`, `figures/` | Main analysis outputs and figures |
 | `tests/`, `.github/workflows/` | Automated checks and continuous integration configuration |
 | `docs/` | Methods, research scope, and result documentation |
-| `supplementary.zip` | Complete supplementary materials; extraction restores `supplementary/`, including early analyses, top-lane research, report builders, and presentation source code |
-| `docs/SOURCE_INDEX.md` | Index of all source files |
 
 ## Run the main analysis
 
@@ -64,18 +61,6 @@ and mirrored variables.
 
 See [reproduction and verification](docs/VERIFICATION.md) for recorded checks and known limitations.
 
-## Supplementary code
-
-The complete supplementary materials are in `supplementary.zip`.
-`supplementary/README.md` documents historical scripts, required inputs, and execution
-boundaries. Run `python -m zipfile -e supplementary.zip .` at the repository root
-to restore all files. Install `requirements-supplementary.txt` before building Word
-reports or running additional exploratory analyses.
-
-The default pipeline does not call supplementary scripts. Historical reports and
-early results should not be treated as current manuscript conclusions. The current
-mathematical manuscript excludes counter-pick and TOST/FDR claims; see
-`docs/PAPER_STATUS.md` for details.
 
 This is an observational study. First-objective fields lack reliable event timestamps,
 so decomposition and predictive results cannot be interpreted as causal effects or

@@ -1,6 +1,6 @@
 # Literature review protocol and seed set
 
-This file turns the paper's literature gap into a reproducible task. It is a
+This file turns the project's literature gap into a reproducible task. It is a
 protocol, not a claim that the search is complete. The machine-readable seed set
 is in [`literature_seed.csv`](literature_seed.csv).
 
@@ -51,7 +51,7 @@ citation chasing on every included paper.
 For each included study record: citation, DOI/URL, game version and dates, amateur
 or professional setting, sample size, unit of observation, outcome, predictors,
 handling of repeated teams/games, leakage controls, effect sizes and intervals,
-causal language, limitations, and the exact manuscript claim it supports or
+causal language, limitations, and the exact project claim it supports or
 contradicts.
 
 ## Seed set and immediate relevance
@@ -66,7 +66,7 @@ These are starting points, not a complete or balanced review.
 
 The literature blocker is cleared only when the search log is filled for every
 database, duplicate removal and both screening stages are documented, uncertain
-records receive a documented second-pass audit, and all substantive manuscript
+records receive a documented second-pass audit, and all substantive project
 claims are linked to either a source or a generated result. Report the final flow
 with PRISMA-style counts.
 

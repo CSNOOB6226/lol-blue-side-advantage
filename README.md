@@ -35,10 +35,9 @@ model comparisons:
 - **Data preparation:** cleaning, paired team-game construction, draft-order features, and integrity checks.
 - **Statistical analysis:** logistic regression, Elo controls, team fixed effects, clustered inference, and bootstrap decomposition.
 - **Predictive evaluation:** Logistic Regression, Random Forest, and XGBoost with game-grouped and chronological validation.
-- **Outputs:** an analysis-ready dataset, model tables, English figures, and manuscript-support materials.
+- **Outputs:** an analysis-ready dataset, model tables, and English figures.
 
-For the research design, see [methods and interpretation](docs/METHODS.md) and
-[current manuscript scope](docs/PAPER_STATUS.md). Start with [`run_all.py`](run_all.py)
+For the research design, see [methods and interpretation](docs/METHODS.md). Start with [`run_all.py`](run_all.py)
 to reproduce the analysis; [`audit_data.py`](src/audit_data.py) checks the data and
 [`ml_validation.py`](src/ml_validation.py) compares predictive models.
 
@@ -54,8 +53,7 @@ to reproduce the analysis; [`audit_data.py`](src/audit_data.py) checks the data 
 6. Does revealing a role later predict winning? (Historical supplementary analysis.)
 
 Counter-pick timing and equivalence analyses are retained as historical supplements.
-They are outside the current manuscript scope because reveal order does not identify
-actual counter-pick intent; see [PAPER_STATUS.md](docs/PAPER_STATUS.md).
+They are outside the main analysis because reveal order does not identify actual counter-pick intent.
 
 ## Headline results
 
@@ -103,9 +101,7 @@ time-stamped before 15:00).
 ## Quick start
 
 For setup and directory details, see [USAGE.md](USAGE.md).
-Supplementary research scripts, report builders, and presentation source modules
-are preserved in [`supplementary.zip`](supplementary.zip); see the
-[extraction instructions](supplementary/README.md).
+
 
 Python 3.10 or later is required; the release was tested with Python 3.13.
 For the exact direct dependency versions used in that run, install
@@ -219,13 +215,11 @@ seed set in [`docs/literature_seed.csv`](docs/literature_seed.csv).
 │   ├── ml_validation.py          # grouped-CV and chronological predictive checks
 │   ├── did_first_selection.py    # supplementary reform diagnostic
 │   ├── robustness.py             # subset and heterogeneity checks
-│   ├── paper_tables.py           # manuscript-support tables
+│   ├── paper_tables.py           # descriptive summary tables
 │   ├── paper_claim_audit.py      # repo-claim consistency audit
 │   ├── figures.py                # main analysis figures
-│   ├── figures_paper_en.py       # English paper figures
+│   ├── figures_paper_en.py       # English figures
 │   └── runtime.py                # runtime helpers for local reproducibility
-├── supplementary.zip             # complete related research and presentation sources
-├── supplementary/README.md       # archive extraction and usage instructions
 ├── tests/                        # lightweight repo-health regression tests
 ├── .github/workflows/ci.yml      # dependency install, tests, data + claim audits
 ├── results/                      # model tables and readable logs
@@ -281,5 +275,4 @@ subject to their original terms; raw files are not redistributed here.
 
 **Author:** Vincent Feng · Research project (June 2026 – present) · supervised by Weining Shen (UC Irvine)
 
-See [current manuscript scope](docs/PAPER_STATUS.md) for the analyses included in the
-paper and [reproduction and checks](docs/VERIFICATION.md) for validation details.
+See [reproduction and checks](docs/VERIFICATION.md) for validation details.

@@ -130,15 +130,14 @@ in those historical models. This means equivalence within the chosen bounds for
 the tested reveal-gap association, not proof of exactly zero effect or evidence
 that all counter-picking strategies are ineffective. First-pick equivalence is
 not established. These analyses and `matchup_quality.py` remain supplementary;
-they are outside the current manuscript's central claims.
+they are outside the main analysis.
 
 ## Reproduction and scope
 
 `python run_all.py` regenerates analyses and figures from the committed panel;
 `python run_all.py --from-raw` rebuilds the panel first. See
 [README.md](../README.md) for headline findings and commands,
-[VERIFICATION.md](VERIFICATION.md) for verification coverage, and
-[PAPER_STATUS.md](PAPER_STATUS.md) for the current manuscript scope.
+[VERIFICATION.md](VERIFICATION.md) for verification coverage.
 The [July 2026 historical draft](archive/report_2026-07.md) records an
 earlier analysis before the LPLOL sample correction. For the current interpretation
-and scope, use this methods note and `PAPER_STATUS.md`.
+and scope, use this methods note.

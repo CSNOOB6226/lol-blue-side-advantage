@@ -48,11 +48,4 @@ not been verified; later raw downloads may also differ from the committed snapsh
   a later nested Elo fit converged. Check optimizer diagnostics before using
   detailed model estimates, since these results do not guarantee convergence for
   every specification.
-- Supplementary code has been checked for syntax, but the historical reports and
-  presentations have not all been regenerated. Some builders require original
-  documents, images, templates, or system fonts that are not included. See the
-  [supplementary guide](../supplementary/README.md) for inputs and usage, and the
-  [source index](SOURCE_INDEX.md) for file paths.
-- Repository checks cover the main analysis and its documentation. They do not
-  verify every claim in the separately maintained manuscript or its Word output;
-  see [manuscript scope](PAPER_STATUS.md).
+- Repository checks cover the main analysis and its documentation.

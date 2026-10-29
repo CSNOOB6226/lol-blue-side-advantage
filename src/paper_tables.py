@@ -1,5 +1,5 @@
 """
-Descriptive tables required by the manuscript that are not already produced by the
+Descriptive tables used in the report that are not already produced by the
 analysis scripts. This script only READS the derived table; it does not alter any
 existing analysis.
 
@@ -125,7 +125,7 @@ def main():
     t3.to_csv(os.path.join(cfg.RESULTS_DIR, "paper_firstpick_crosstab.csv"), index=False)
     print("== 2026 side x first-pick ==\n", t3.to_string(index=False), "\n")
 
-    # a few scalars the manuscript quotes
+    # a few scalars the report quotes
     s26 = d[(d.year == 2026)].dropna(subset=["firstPick"])
     print("2026 first-pick teams that are blue: %.1f%%" % (100 * s26[s26.firstPick == 1].blue.mean()))
     for y in sorted(d.year.unique()):
